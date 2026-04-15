@@ -8,28 +8,28 @@ O sistema busca resolver [problema que o sistema resolve] de forma simples e efi
 
 ---
 
-## 🚀 Funcionalidades
+## 📋 Requisitos Funcionais
 
-• O sistema deve permitir o cadastro de usuários;
-• O sistema deve permitir login e autenticação;
-• O sistema deve permitir criar eventos;
-• O sistema deve permitir editar eventos;
-• O sistema deve permitir excluir eventos;
-• O sistema deve exibir os eventos em formato de calendário;
-• O sistema deve mostrar eventos por horário;
-• O sistema deve permitir visualizar detalhes do evento;
-• O sistema deve permitir organizar eventos por data;
+- O sistema deve permitir o cadastro de usuários;
+- O sistema deve permitir login e autenticação;
+- O sistema deve permitir criar eventos;
+- O sistema deve permitir editar eventos;
+- O sistema deve permitir excluir eventos;
+- O sistema deve exibir os eventos em formato de calendário;
+- O sistema deve mostrar eventos por horário;
+- O sistema deve permitir visualizar detalhes do evento;
+- O sistema deve permitir organizar eventos por data;
 
 ---
 
 ⚙️ Requisitos Não Funcionais
 
-• O sistema deve possuir interface simples e intuitiva;
-• O sistema deve ser acessível por navegadores modernos;
-• O sistema deve apresentar tempo de resposta rápido;
-• O sistema deve garantir integridade dos dados;
-• O sistema deve ser responsivo (desktop e mobile básico);
-• O sistema deve ser de fácil manutenção;
+- O sistema deve possuir interface simples e intuitiva;
+- O sistema deve ser acessível por navegadores modernos;
+- O sistema deve apresentar tempo de resposta rápido;
+- O sistema deve garantir integridade dos dados;
+- O sistema deve ser responsivo (desktop e mobile básico);
+- O sistema deve ser de fácil manutenção;
 
 ## 🖥️ Protótipo de Interface
 
