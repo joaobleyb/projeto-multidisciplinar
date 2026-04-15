@@ -77,32 +77,49 @@ projeto/
 
 ---
 
-## ▶️ Como Executar o Projeto
+## 🐳 Execução com Docker
 
-### 1. Clonar o repositório
+Este projeto pode ser executado utilizando o Docker, facilitando a configuração do ambiente e evitando a necessidade de instalar dependências manualmente.
+
+### 📦 Pré-requisitos
+
+* Docker instalado
+* Docker Compose instalado
+
+### ▶️ Passos para execução
+
+1. Clonar o repositório:
 
 ```
 git clone [link-do-repositorio]
 ```
 
-### 2. Acessar a pasta
+2. Acessar a pasta do projeto:
 
 ```
 cd [nome-do-projeto]
 ```
 
-### 3. Configurar o projeto
-
-* Instalar dependências (se houver)
-* Configurar banco de dados
-
-### 4. Executar
+3. Executar os containers:
 
 ```
-[comando para rodar, ex: npm start / php -S localhost:8000]
+docker-compose up --build
+```
+
+4. Acessar o sistema no navegador:
+
+```
+http://localhost:[porta]
 ```
 
 ---
+
+## 💡 Observações
+
+* O Docker garante que o projeto rode em qualquer ambiente de forma padronizada;
+* Não é necessário instalar dependências manualmente;
+* Ideal para facilitar testes e execução do sistema.
+
 
 ## 🧪 Testes Funcionais
 
