@@ -2,9 +2,9 @@
 
 ## 📌 Descrição
 
-Este projeto foi desenvolvido como parte do Projeto Multidisciplinar, com o objetivo de criar um sistema que [descreva aqui o objetivo, ex: gerencia eventos, controla tarefas, organiza usuários, etc.].
+Este projeto foi desenvolvido como parte do Projeto Multidisciplinar, com o objetivo de criar um sistema para gerenciamento de eventos, permitindo que usuários cadastrem, organizem e visualizem eventos de forma prática e eficiente.
 
-O sistema busca resolver [problema que o sistema resolve] de forma simples e eficiente, utilizando tecnologias modernas de desenvolvimento.
+O sistema busca resolver a dificuldade de organização e acompanhamento de eventos, oferecendo uma interface simples e intuitiva, com visualização em calendário e controle por data e horário, utilizando tecnologias modernas de desenvolvimento.
 
 ---
 
