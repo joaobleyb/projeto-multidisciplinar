@@ -1,0 +1,124 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fundo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fb;
+}
+
+/* Container centralizado */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Card branco */
+.form-cadastro {
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Topo */
+.topo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Ícone */
+.topo img {
+    width: 60px;
+    height: 60px;
+    background-color: #2563eb;
+    padding: 10px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+/* Título */
+.topo h2 {
+    margin-bottom: 5px;
+}
+
+/* Subtítulo */
+.topo p {
+    color: gray;
+    font-size: 14px;
+}
+
+/* Campos */
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Labels */
+.campo label {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+/* Inputs */
+.campo input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+/* Radio group */
+.opcao-tipo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.opcao-tipo label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+/* Botão */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Texto login */
+.login-text {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+/* Link */
+.login-text a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Hover link */
+.login-text a:hover {
+    text-decoration: underline;
+}
