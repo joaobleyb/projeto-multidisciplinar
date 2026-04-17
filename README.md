@@ -51,12 +51,7 @@ docs/prototipo/
 
 ### Back-end
 
-* Linguagem não decidida 
-* Opcoes:
-
-* PHP
-* Python
-* Java
+* Javascript
 
 ### Banco de Dados
 
