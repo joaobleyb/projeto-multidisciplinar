@@ -60,7 +60,7 @@ docs/prototipo/
 
 ### Banco de Dados
 
-* [Ex: MySQL / SQLite]
+* MySQL
 
 ---
 
