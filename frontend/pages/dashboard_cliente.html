@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agenda – Clínica GestãoDS</title>
+  <link rel="stylesheet" href="../css/dashboard_cliente.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<header class="topnav">
+  <div class="topnav-left">
+    <button class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <div class="topnav-right">
+    <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+  </div>
+</header>
+
+<div class="app-body">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="multiagenda-row">
+      <span>Multiagenda</span>
+      <label class="toggle">
+        <input type="checkbox"/>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="doctor-card">
+      <div class="doctor-avatar">
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=marcio&backgroundColor=b6e3f4" alt="Marcio"/>
+      </div>
+      <select class="doctor-select">
+        <option>Marcio Hernandes</option>
+      </select>
+    </div>
+
+    <button class="btn-waitlist">Lista de espera</button>
+
+    <div class="section-header collapsible">
+      <span>Horários disponíveis</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+
+    <div class="section-header collapsible open">
+      <span>Sala de espera</span>
+      <i class="fa-solid fa-chevron-up"></i>
+    </div>
+
+    <div class="waiting-list"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <div class="main-header">
+      <h1 class="page-title">Agenda</h1>
+      <div class="clinic-info">
+        <span class="clinic-name">Clínica GestãoDS</span>
+        <label class="toggle-row">
+          <span>Agenda tela cheia</span>
+          <label class="toggle">
+            <input type="checkbox" checked/>
+            <span class="slider"></span>
+          </label>
+        </label>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <button class="btn-today">Hoje</button>
+        <div class="view-select">
+          <select>
+            <option>Semana</option>
+            <option>Dia</option>
+            <option>Mês</option>
+          </select>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+      <div class="toolbar-center">
+        <button class="nav-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="week-label">
+          <span class="week-text">Semana</span>
+          <span class="week-date">2 – 6 de out. de 2023</span>
+        </div>
+        <button class="nav-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-icon-only"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="btn-new"><i class="fa-solid fa-plus"></i> Novo agendamento</button>
+        <button class="btn-config"><i class="fa-solid fa-gear"></i> Configurar</button>
+      </div>
+    </div>
+
+    <!-- CALENDAR GRID -->
+    <div class="calendar-wrapper">
+      <div class="calendar-grid">
+
+        <!-- Header row -->
+        <div class="time-col-header"></div>
+        <div class="day-header">SEG 3/1</div>
+        <div class="day-header">TER 4/1</div>
+        <div class="day-header">QUA 5/1</div>
+        <div class="day-header">QUI 6/1</div>
+        <div class="day-header">SEX 7/1</div>
+
+        <!-- 06:00 row -->
+        <div class="time-slot">06:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 06:15 row -->
+        <div class="time-slot">06:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 06:30 row -->
+        <div class="time-slot">06:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 06:45 row -->
+        <div class="time-slot">06:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 07:00 row -->
+        <div class="time-slot">07:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 07:15 row -->
+        <div class="time-slot">07:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 07:30 row -->
+        <div class="time-slot">07:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 07:45 row -->
+        <div class="time-slot">07:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 08:00 row -->
+        <div class="time-slot">08:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 08:15 row -->
+        <div class="time-slot">08:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 08:30 row -->
+        <div class="time-slot">08:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 08:45 row -->
+        <div class="time-slot">08:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 09:00 row -->
+        <div class="time-slot">09:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 09:15 row -->
+        <div class="time-slot">09:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 09:30 row -->
+        <div class="time-slot">09:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 09:45 row -->
+        <div class="time-slot">09:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 10:00 row -->
+        <div class="time-slot">10:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 10:15 row -->
+        <div class="time-slot">10:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 10:30 row -->
+        <div class="time-slot">10:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 10:45 row -->
+        <div class="time-slot">10:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 11:00 row -->
+        <div class="time-slot">11:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 11:15 row -->
+        <div class="time-slot">11:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 11:30 row -->
+        <div class="time-slot">11:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 11:45 row -->
+        <div class="time-slot">11:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 12:00 row -->
+        <div class="time-slot">12:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 12:15 row -->
+        <div class="time-slot">12:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 12:30 row -->
+        <div class="time-slot">12:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 12:45 row -->
+        <div class="time-slot">12:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 13:00 row -->
+        <div class="time-slot">13:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 13:15 row -->
+        <div class="time-slot">13:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 13:30 row -->
+        <div class="time-slot">13:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 13:45 row -->
+        <div class="time-slot">13:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 14:00 row -->
+        <div class="time-slot">14:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 14:15 row -->
+        <div class="time-slot">14:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 14:30 row -->
+        <div class="time-slot">14:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 14:45 row -->
+        <div class="time-slot">14:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 15:00 row -->
+        <div class="time-slot">15:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 15:15 row -->
+        <div class="time-slot">15:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 15:30 row -->
+        <div class="time-slot">15:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 15:45 row -->
+        <div class="time-slot">15:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 16:00 row -->
+        <div class="time-slot">16:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 16:15 row -->
+        <div class="time-slot">16:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 16:30 row -->
+        <div class="time-slot">16:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 16:45 row -->
+        <div class="time-slot">16:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 17:00 row -->
+        <div class="time-slot">17:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 17:15 row -->
+        <div class="time-slot">17:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 17:30 row -->
+        <div class="time-slot">17:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 17:45 row -->
+        <div class="time-slot">17:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 18:00 row -->
+        <div class="time-slot">18:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 18:15 row -->
+        <div class="time-slot">18:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 18:30 row -->
+        <div class="time-slot">18:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 18:45 row -->
+        <div class="time-slot">18:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 19:00 row -->
+        <div class="time-slot">19:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 19:15 row -->
+        <div class="time-slot">19:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 19:30 row -->
+        <div class="time-slot">19:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 19:45 row -->
+        <div class="time-slot">19:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 20:00 row -->
+        <div class="time-slot">20:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 20:15 row -->
+        <div class="time-slot">20:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 20:30 row -->
+        <div class="time-slot">20:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 20:45 row -->
+        <div class="time-slot">20:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 21:00 row -->
+        <div class="time-slot">21:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 21:15 row -->
+        <div class="time-slot">21:15</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 21:30 row -->
+        <div class="time-slot">21:30</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 21:45 row -->
+        <div class="time-slot">21:45</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+        <!-- 22:00 row -->
+        <div class="time-slot">22:00</div>
+        <div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"></div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
