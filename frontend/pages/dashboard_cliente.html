@@ -3,63 +3,337 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agenda – Agendador de Eventos</title> 
+  <title>Agenda – Agendador de Eventos</title>
   <link rel="stylesheet" href="../css/dashboard_cliente.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
+
 <div class="app">
 
+  <!--SideBar nao Utilizada ainda-->
   <aside class="sidebar"></aside>
 
   <div class="main">
-    
+
     <div class="topbar">
 
       <div class="topbar-left">
+        
         <div class="filtros">
-          <select>
-            <option>Dia</option>
-            <option>Tarde</option>
-            <option>Noite</option>
-          </select>
+        <!--Filtros da Topbar-->
+        <div class="filtro-periodo">
+          <button class="filtro-btn active" onclick="filtrar('bloco-manha', this)">
+            <i class="fa-solid fa-sun"></i> Manhã
+          </button>
+          <button class="filtro-btn active" onclick="filtrar('bloco-tarde', this)">
+            <i class="fa-solid fa-cloud-sun"></i> Tarde
+          </button>
+          <button class="filtro-btn active" onclick="filtrar('bloco-noite', this)">
+            <i class="fa-solid fa-moon"></i> Noite
+          </button>
+        </div>
+
+        <script src="../js/dashboard_cliente.js"></script>
+        
           <select>
             <option>Empresa</option>
           </select>
           <select>
             <option>Seção</option>
           </select>
+
         </div>
 
         <div class="date-nav">
+
           <button class="nav-btn"><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="today-btn">Today</button>
-          <div class="date-label">Tuesday 27 Aug, 2022</div>
+          <button class="today-btn">Hoje</button>
+          <div class="date-label">Terça 27 Ago, 2022</div>
           <button class="nav-btn"><i class="fa-solid fa-chevron-right"></i></button>
+
         </div>
+
       </div>
 
       <button class="btn-add">+ Evento</button>
 
-  </div>
+    </div>
 
     <div class="agenda-container">
-      <div class="agenda">
 
-        <!-- EXEMPLO DE UMA LINHA -->
-        <div class="hora">06:00</div>
-        <div class="celula"></div>
-        <div class="celula"></div>
-        <div class="celula"></div>
-        <div class="celula"></div>
-        <div class="celula"></div>
+      <!-- CABEÇALHO DAS COLUNAS -->
+      <div class="agenda-header">
+        <div class="agenda-header-spacer"></div>
+        <div class="agenda-col-label">Col 1</div>
+        <div class="agenda-col-label">Col 2</div>
+        <div class="agenda-col-label">Col 3</div>
+        <div class="agenda-col-label">Col 4</div>
+        <div class="agenda-col-label">Col 5</div>
+      </div>
+
+      <div class="agenda-scroll">
+
+        <!--Manhã-->
+        <div class="periodo-bloco" id="bloco-manha">
+          <div class="periodo-titulo">
+            <i class="fa-solid fa-sun"></i> Manhã
+          </div>
+          <div class="agenda">
+            <div class="hora">06:00</div>
+            <div class="celula" data-hora="06:00" data-col="1"></div>
+            <div class="celula" data-hora="06:00" data-col="2"></div>
+            <div class="celula" data-hora="06:00" data-col="3"></div>
+            <div class="celula" data-hora="06:00" data-col="4"></div>
+            <div class="celula" data-hora="06:00" data-col="5"></div>
+
+            <div class="hora">06:30</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">07:00</div>
+            <div class="celula" data-hora="07:00" data-col="1"></div>
+            <div class="celula" data-hora="07:00" data-col="2"></div>
+            <div class="celula" data-hora="07:00" data-col="3"></div>
+            <div class="celula" data-hora="07:00" data-col="4"></div>
+            <div class="celula" data-hora="07:00" data-col="5"></div>
+
+            <div class="hora">07:30</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">08:00</div>
+            <div class="celula" data-hora="08:00" data-col="1"></div>
+            <div class="celula" data-hora="08:00" data-col="2"></div>
+            <div class="celula" data-hora="08:00" data-col="3"></div>
+            <div class="celula" data-hora="08:00" data-col="4"></div>
+            <div class="celula" data-hora="08:00" data-col="5"></div>
+
+            <div class="hora">08:30</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">09:00</div>
+            <div class="celula" data-hora="09:00" data-col="1"></div>
+            <div class="celula" data-hora="09:00" data-col="2"></div>
+            <div class="celula" data-hora="09:00" data-col="3"></div>
+            <div class="celula" data-hora="09:00" data-col="4"></div>
+            <div class="celula" data-hora="09:00" data-col="5"></div>
+
+            <div class="hora">09:30</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">10:00</div>
+            <div class="celula" data-hora="10:00" data-col="1"></div>
+            <div class="celula" data-hora="10:00" data-col="2"></div>
+            <div class="celula" data-hora="10:00" data-col="3"></div>
+            <div class="celula" data-hora="10:00" data-col="4"></div>
+            <div class="celula" data-hora="10:00" data-col="5"></div>
+
+            <div class="hora">10:30</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">11:00</div>
+            <div class="celula" data-hora="11:00" data-col="1"></div>
+            <div class="celula" data-hora="11:00" data-col="2"></div>
+            <div class="celula" data-hora="11:00" data-col="3"></div>
+            <div class="celula" data-hora="11:00" data-col="4"></div>
+            <div class="celula" data-hora="11:00" data-col="5"></div>
+          </div>
+        </div>
+
+        <!--Tarde-->
+        <div class="periodo-bloco" id="bloco-tarde">
+          <div class="periodo-titulo">
+            <i class="fa-solid fa-cloud-sun"></i> Tarde
+          </div>
+          <div class="agenda">
+            <div class="hora">12:00</div>
+            <div class="celula" data-hora="12:00" data-col="1"></div>
+            <div class="celula" data-hora="12:00" data-col="2"></div>
+            <div class="celula" data-hora="12:00" data-col="3"></div>
+            <div class="celula" data-hora="12:00" data-col="4"></div>
+            <div class="celula" data-hora="12:00" data-col="5"></div>
+
+            <div class="hora">12:30</div>
+            <div class="celula" data-hora="12:00" data-col="1"></div>
+            <div class="celula" data-hora="12:00" data-col="2"></div>
+            <div class="celula" data-hora="12:00" data-col="3"></div>
+            <div class="celula" data-hora="12:00" data-col="4"></div>
+            <div class="celula" data-hora="12:00" data-col="5"></div>
+
+            <div class="hora">13:00</div>
+            <div class="celula" data-hora="13:00" data-col="1"></div>
+            <div class="celula" data-hora="13:00" data-col="2"></div>
+            <div class="celula" data-hora="13:00" data-col="3"></div>
+            <div class="celula" data-hora="13:00" data-col="4"></div>
+            <div class="celula" data-hora="13:00" data-col="5"></div>
+
+            <div class="hora">13:30</div>
+            <div class="celula" data-hora="13:00" data-col="1"></div>
+            <div class="celula" data-hora="13:00" data-col="2"></div>
+            <div class="celula" data-hora="13:00" data-col="3"></div>
+            <div class="celula" data-hora="13:00" data-col="4"></div>
+            <div class="celula" data-hora="13:00" data-col="5"></div>
+
+            <div class="hora">14:00</div>
+            <div class="celula" data-hora="14:00" data-col="1"></div>
+            <div class="celula" data-hora="14:00" data-col="2"></div>
+            <div class="celula" data-hora="14:00" data-col="3"></div>
+            <div class="celula" data-hora="14:00" data-col="4"></div>
+            <div class="celula" data-hora="14:00" data-col="5"></div>
+
+            <div class="hora">14:30</div>
+            <div class="celula" data-hora="14:00" data-col="1"></div>
+            <div class="celula" data-hora="14:00" data-col="2"></div>
+            <div class="celula" data-hora="14:00" data-col="3"></div>
+            <div class="celula" data-hora="14:00" data-col="4"></div>
+            <div class="celula" data-hora="14:00" data-col="5"></div>
+
+            <div class="hora">15:00</div>
+            <div class="celula" data-hora="15:00" data-col="1"></div>
+            <div class="celula" data-hora="15:00" data-col="2"></div>
+            <div class="celula" data-hora="15:00" data-col="3"></div>
+            <div class="celula" data-hora="15:00" data-col="4"></div>
+            <div class="celula" data-hora="15:00" data-col="5"></div>
+
+            <div class="hora">15:30</div>
+            <div class="celula" data-hora="14:00" data-col="1"></div>
+            <div class="celula" data-hora="14:00" data-col="2"></div>
+            <div class="celula" data-hora="14:00" data-col="3"></div>
+            <div class="celula" data-hora="14:00" data-col="4"></div>
+            <div class="celula" data-hora="14:00" data-col="5"></div>
+
+            <div class="hora">16:00</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">16:30</div>
+            <div class="celula" data-hora="16:00" data-col="1"></div>
+            <div class="celula" data-hora="16:00" data-col="2"></div>
+            <div class="celula" data-hora="16:00" data-col="3"></div>
+            <div class="celula" data-hora="16:00" data-col="4"></div>
+            <div class="celula" data-hora="16:00" data-col="5"></div>
+
+            <div class="hora">17:00</div>
+            <div class="celula" data-hora="17:00" data-col="1"></div>
+            <div class="celula" data-hora="17:00" data-col="2"></div>
+            <div class="celula" data-hora="17:00" data-col="3"></div>
+            <div class="celula" data-hora="17:00" data-col="4"></div>
+            <div class="celula" data-hora="17:00" data-col="5"></div>
+          </div>
+        </div>
+
+        <!--Noite-->
+        <div class="periodo-bloco" id="bloco-noite">
+          <div class="periodo-titulo">
+            <i class="fa-solid fa-moon"></i> Noite
+          </div>
+          <div class="agenda">
+            <div class="hora">18:00</div>
+            <div class="celula" data-hora="18:00" data-col="1"></div>
+            <div class="celula" data-hora="18:00" data-col="2"></div>
+            <div class="celula" data-hora="18:00" data-col="3"></div>
+            <div class="celula" data-hora="18:00" data-col="4"></div>
+            <div class="celula" data-hora="18:00" data-col="5"></div>
+
+            <div class="hora">18:30</div>
+            <div class="celula" data-hora="18:00" data-col="1"></div>
+            <div class="celula" data-hora="18:00" data-col="2"></div>
+            <div class="celula" data-hora="18:00" data-col="3"></div>
+            <div class="celula" data-hora="18:00" data-col="4"></div>
+            <div class="celula" data-hora="18:00" data-col="5"></div>
+
+            <div class="hora">19:00</div>
+            <div class="celula" data-hora="19:00" data-col="1"></div>
+            <div class="celula" data-hora="19:00" data-col="2"></div>
+            <div class="celula" data-hora="19:00" data-col="3"></div>
+            <div class="celula" data-hora="19:00" data-col="4"></div>
+            <div class="celula" data-hora="19:00" data-col="5"></div>
+
+            <div class="hora">19:30</div>
+            <div class="celula" data-hora="18:00" data-col="1"></div>
+            <div class="celula" data-hora="18:00" data-col="2"></div>
+            <div class="celula" data-hora="18:00" data-col="3"></div>
+            <div class="celula" data-hora="18:00" data-col="4"></div>
+            <div class="celula" data-hora="18:00" data-col="5"></div>
+
+            <div class="hora">20:00</div>
+            <div class="celula" data-hora="20:00" data-col="1"></div>
+            <div class="celula" data-hora="20:00" data-col="2"></div>
+            <div class="celula" data-hora="20:00" data-col="3"></div>
+            <div class="celula" data-hora="20:00" data-col="4"></div>
+            <div class="celula" data-hora="20:00" data-col="5"></div>
+
+            <div class="hora">20:30</div>
+            <div class="celula" data-hora="18:00" data-col="1"></div>
+            <div class="celula" data-hora="18:00" data-col="2"></div>
+            <div class="celula" data-hora="18:00" data-col="3"></div>
+            <div class="celula" data-hora="18:00" data-col="4"></div>
+            <div class="celula" data-hora="18:00" data-col="5"></div>
+
+            <div class="hora">21:00</div>
+            <div class="celula" data-hora="21:00" data-col="1"></div>
+            <div class="celula" data-hora="21:00" data-col="2"></div>
+            <div class="celula" data-hora="21:00" data-col="3"></div>
+            <div class="celula" data-hora="21:00" data-col="4"></div>
+            <div class="celula" data-hora="21:00" data-col="5"></div>
+
+            <div class="hora">21:30</div>
+            <div class="celula" data-hora="18:00" data-col="1"></div>
+            <div class="celula" data-hora="18:00" data-col="2"></div>
+            <div class="celula" data-hora="18:00" data-col="3"></div>
+            <div class="celula" data-hora="18:00" data-col="4"></div>
+            <div class="celula" data-hora="18:00" data-col="5"></div>
+
+            <div class="hora">22:00</div>
+            <div class="celula" data-hora="22:00" data-col="1"></div>
+            <div class="celula" data-hora="22:00" data-col="2"></div>
+            <div class="celula" data-hora="22:00" data-col="3"></div>
+            <div class="celula" data-hora="22:00" data-col="4"></div>
+            <div class="celula" data-hora="22:00" data-col="5"></div>
+
+            <div class="hora">22:30</div>
+            <div class="celula" data-hora="18:00" data-col="1"></div>
+            <div class="celula" data-hora="18:00" data-col="2"></div>
+            <div class="celula" data-hora="18:00" data-col="3"></div>
+            <div class="celula" data-hora="18:00" data-col="4"></div>
+            <div class="celula" data-hora="18:00" data-col="5"></div>
+
+            <div class="hora">23:00</div>
+            <div class="celula" data-hora="23:00" data-col="1"></div>
+            <div class="celula" data-hora="23:00" data-col="2"></div>
+            <div class="celula" data-hora="23:00" data-col="3"></div>
+            <div class="celula" data-hora="23:00" data-col="4"></div>
+            <div class="celula" data-hora="23:00" data-col="5"></div>
+          </div>
+        </div>
 
       </div>
     </div>
 
   </div>
 </div>
-
 </body>
 </html>
