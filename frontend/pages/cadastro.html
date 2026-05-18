@@ -1,69 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
     <link rel="stylesheet" href="../css/cadastro.css">
 </head>
+
 <body>
 
-    <div class="container">
+    <main class="container">
 
-        <div class="topo">
-            <img src="../img/calendario.png">
-            <h2>Criar Conta</h2>
-            <p>Preencha os dados para se cadastrar</p>
-        </div>
+        <section class="signup-area">
 
-        <form class="form-cadastro">
+            <form class="form-area">
 
-            <div class="campo">
-                <label for="name">Nome Completo</label>
-                <input type="text" id="name" name="name" placeholder="Ex: João Silva">
-            </div>
+                <h2>Comece Agora Mesmo</h2>
 
-            <div class="campo">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="Ex: joao.silva@email.com">
-            </div>
-
-            <div class="campo">
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres">
-            </div>
-
-            <div class="campo">
-                <label for="confirm_senha">Confirmar Senha</label>
-                <input type="password" id="confirm_senha" name="confirm_senha" placeholder="Confirme sua senha">
-            </div>
-
-            <div class="opcao-tipo">
-                <p>Tipo de usuário:</p>
-                <label>
-                    <input type="radio" name="tipo" value="cliente">
-                    Cliente (Solicita os agendamentos)
-                </label>
-
-                <label>
-                    <input type="radio" name="tipo" value="gestor">
-                    Gestor (Realiza os agendamentos e gerencia os clientes)
-                </label>
-            </div>
-
-            <div class="botao-cadastrar">
-                <button type="submit" class="btn">Cadastrar</button>
-            </div>
-
-        </form>
-        
-            <div class="login-link">
-                <p class="login-text">
-                    Já tem uma conta? <a href="../index.html">Fazer login</a>
+                <p id="frase">
+                    Planeje eventos, gerencie convidados e torne cada ocasião especial.
                 </p>
-            </div>
 
-    </div>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="João Silva">
 
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="joao@gmail.com">
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Ao menos 8 caracteres">
+
+                <label for="confirmarSenha">Confirmar senha</label>
+                <input type="password" id="confirmarSenha" placeholder="Repita sua senha">
+
+                <button id="btnCadastrar">Criar conta</button>
+
+                <div class="ou">──────── Ou ────────</div>
+
+                <div class="social-buttons">
+
+                    <button id="btnLoginGoogle">
+                        <img src="../img/googlelogo.png" alt="Google">
+                        Google
+                    </button>
+
+                    <button id="btnLoginEmail">
+                        Email
+                    </button>
+
+                </div>
+
+                <p>
+                    Já possui conta?
+                    <a href="../index.html">Entrar</a>
+                </p>
+
+            </form>
+
+        </section>
+
+        <section class="imagem">
+            <img id="imagemA" src="../img/cadastro.jpg">
+        </section>
+
+    </main>
+    <script src="../js/telaCadastro.js"></script>
 </body>
 </html>

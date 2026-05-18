@@ -1,103 +1,173 @@
-* {
+/* Reset CSS */
+
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fb;
-}
+/* Fundo */
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url("../img/background.jpg");
+    background-color: #000000;
+    min-height: 100vh;
+
+    display: flex;  
     justify-content: center;
-    height: 100vh;
+    align-items: center;
 }
 
-.form-cadastro {
+/* Quadrado Branco */
+
+.container{
+    width: 90%;
+    max-width: 1300px;
+
+    min-height: 700px;
+
     background: white;
+    border-radius: 20px;
+
+    border: 2px solid black;
+
+    display: flex;
+    overflow: hidden;
+    gap: 40px;
+    box-shadow: 10px 10px 10px rgba(80, 80, 80, 0.541);
+}
+
+/* Area de cadastro */
+
+.signup-area{
     padding: 30px;
-    width: 350px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 130px;
 }
 
-.topo {
-    text-align: center;
+
+.signup-area h2{
     margin-bottom: 20px;
+    font-size: 25px;
+    text-align: left;
 }
 
-.topo img {
-    width: 60px;
-    height: 60px;
-    background-color: #2563eb;
-    padding: 10px;
-    border-radius: 30%;
-    margin-bottom: 10px;
+/* Alihando a frase a esquerda */
+
+#frase{
+    text-align: left ;
+    margin-bottom: 20px;
+    color: rgb(65, 64, 64);
 }
 
-.topo h2 {
-    margin-bottom: 5px;
-}
+/* Deixando botao e inputs bonitinhos */
 
-.topo p {
-    color: gray;
-    font-size: 14px;
-}
-
-.campo {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.campo label {
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
-.campo input {
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-
-.opcao-tipo {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-
-.opcao-tipo label {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin-top: 10px;
-    font-size: 13px;
-}
-
-.btn {
+input{
     width: 100%;
+
     padding: 12px;
-    background-color: #2563eb;
+
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+
+    margin-bottom: 15px;
+    background-color: #F0F0F0
+}
+
+#btnCadastrar{
+    width: 100%;
+    border-radius: 8px;
+    padding: 12px;
+    background-color: #102b3f;
+    margin-top: 10px;
     color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
+
 }
 
-.login-text {
+/* Parte Divisoria com ou */
+
+.ou{
     text-align: center;
-    margin-top: 15px;
+    color: gray;
+
+    margin: 30px 0;
 }
 
-.login-text a {
-    color: #2563eb;
+/* Botoes de cadastro por google e email */
+
+.social-buttons{
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+#btnLoginGoogle{
+    flex: 1;
+
+    padding: 12px;
+    height: 45px;
+    border-radius: 8px;
+    border: none;
+    gap: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#btnLoginGoogle img{
+    width: 20px;
+    height: 20px;
+
+    display: block;
+}
+
+#btnLoginEmail{
+    flex: 1;
+
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    height: 45px;
+    background-color: #F0F0F0
+}
+
+/* Alinhamento de centro para botao de trocar para paginda de cadastro */
+
+.form-area p {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.imagem{
+    width: 60%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+.imagem img{
+    width: 90%;
+    height: 90%;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+    border: 5px solid rgb(0, 0, 0);
+}
+
+p a{
     text-decoration: none;
-    font-weight: bold;
+    color: rgb(59, 38, 255);
 }

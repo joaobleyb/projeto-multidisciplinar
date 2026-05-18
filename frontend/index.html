@@ -7,35 +7,49 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-    <div class="container">
-        <div class="topo">
-            <img src="img/calendario.png">
-            <h2>Bem-vindo!</h2>
-            <p>Faça login para acessar sua conta</p>
-        </div>
+    <main class="container">
 
-        <form class="form-login">
+        <section class="login-area">
 
-            <div class="campo">
+            <form class="form-area">
+
+                <h2>Seu próximo grande evento começa aqui!</h2>
+                <p id="frase"></p>
+
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="seu@email.com">
-            </div>
+                <input type="email" id="email" placeholder="joao@gmail.com">
 
-            <div class="campo">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" placeholder="********">
-            </div>
+                <input type="password" id="senha" placeholder="Ao menos 8 caracteres">
 
-            <button type="submit" class="btn">Entrar</button>
+                <a href="#" class="forgot-password">Esqueceu sua senha?</a>
 
-        </form>
+                <button id="btnEntrar">Entrar</button>
 
-        <div class="cadastro-link">
-            <p class="cadastro-text">
-                Não tem uma conta? <a href="pages/cadastro.html">Cadastre-se</a>
-            </p>
-        </div>
-    </div>    
+                <div class="ou">──────── Ou ────────</div>
+                
+                <div class="social-buttons">
+                    <button id="btnLoginGoogle">
+                        <img src="img/googlelogo.png" alt="Google">
+                        Google
+                    </button>
+                    <button id="btnLoginEmail">Email</button>
+                </div>
 
+                <p>
+                    Não tem conta?
+                    <a href="pages/cadastro.html">Cadastre-se</a>
+                </p>
+
+            </form>
+
+        </section>
+
+        <section class="imagem">
+            <img id="imagemAleatoria" src="img/login.jpg">
+        </section>
+    </main>
+
+    <script src="js/telaLogin.js"></script>
 </body>
 </html>
