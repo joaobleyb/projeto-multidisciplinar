@@ -1,57 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="../css/cadastro.css">
+    <title>EventHub — Cadastro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/login.css">
 </head>
-
 <body>
+    <body>
+
+    <nav class="topbar">
+        <a href="../index.html" class="topbar-logo">
+            <div class="topbar-logo-icone">
+                <img src="../img/logo.png" alt="EventHub">
+            </div>
+            EventHub
+        </a>
+        <div class="topbar-links">
+            <a href="#">Início</a>
+            <a href="#">Sobre</a>
+            <a href="#">Contato</a>
+            <a href="../index.html" class="topbar-criar-conta">Entrar</a>
+        </div>
+    </nav>
 
     <main class="container">
 
-        <section class="signup-area">
+        <section class="login-area">
 
             <form class="form-area">
 
-                <h2>Comece Agora Mesmo</h2>
+                <h2>Crie sua conta</h2>
+                <p id="frase">Comece a organizar eventos incríveis hoje</p>
 
-                <p id="frase">
-                    Planeje eventos, gerencie convidados e torne cada ocasião especial.
-                </p>
-
-                <label for="nome">Nome</label>
-                <input type="text" id="nome" placeholder="João Silva">
+                <div class="campos-duplos">
+                    <div class="campo-grupo">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="João">
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="sobrenome">Sobrenome</label>
+                        <input type="text" id="sobrenome" placeholder="Silva">
+                    </div>
+                </div>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="joao@gmail.com">
+                <input type="email" id="email" placeholder="seu@email.com">
 
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" placeholder="Ao menos 8 caracteres">
+                <div class="senha-wrapper">
+                    <input type="password" id="senha" placeholder="Ao menos 8 caracteres">
+                </div>
 
                 <label for="confirmarSenha">Confirmar senha</label>
-                <input type="password" id="confirmarSenha" placeholder="Repita sua senha">
+                <div class="senha-wrapper">
+                    <input type="password" id="confirmarSenha" placeholder="Repita a senha">
+                </div>
 
-                <button id="btnCadastrar">Criar conta</button>
+                <button id="btnCadastrar">
+                    Criar conta
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
 
-                <div class="ou">──────── Ou ────────</div>
+                <div class="ou"><span>ou cadastre-se com</span></div>
 
                 <div class="social-buttons">
-
-                    <button id="btnLoginGoogle">
+                    <button id="btnCadastroGoogle">
                         <img src="../img/googlelogo.png" alt="Google">
                         Google
                     </button>
-
-                    <button id="btnLoginEmail">
-                        Email
+                    <button id="btnCadastroGithub">
+                        <img src="../img/githublogo.png" alt="GitHub">
+                        GitHub
                     </button>
-
                 </div>
 
-                <p>
-                    Já possui conta?
+                <p class="rodape-termos">
+                    Ao continuar, você concorda com nossos
+                    <a href="#">Termos</a> e <a href="#">Privacidade</a>
+                </p>
+
+                <p class="link-cadastro">
+                    Já tem conta?
                     <a href="../index.html">Entrar</a>
                 </p>
 
@@ -60,10 +92,15 @@
         </section>
 
         <section class="imagem">
-            <img id="imagemA" src="../img/cadastro.jpg">
+            <img id="imagemAleatoria" src="../img/cadastro.png" alt="Evento">
+            <div class="imagem-overlay">
+                <h3>Seu próximo grande evento começa aqui</h3>
+                <p>Plataforma completa para criação e gestão de eventos</p>
+            </div>
         </section>
 
     </main>
+
     <script src="../js/telaCadastro.js"></script>
 </body>
 </html>

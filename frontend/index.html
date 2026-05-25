@@ -1,42 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>EventHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+    <body>
+
+    <nav class="topbar">
+        <a href="#" class="topbar-logo">
+            <div class="topbar-logo-icone">
+                <img src="img/logo.png" alt="EventHub">
+            </div>
+            EventHub
+        </a>
+        <div class="topbar-links">
+            <a href="#">Início</a>
+            <a href="#">Sobre</a>
+            <a href="#">Contato</a>
+            <a href="pages/cadastro.html" class="topbar-criar-conta">Criar conta</a>
+        </div>
+    </nav>
+
     <main class="container">
 
         <section class="login-area">
 
             <form class="form-area">
 
-                <h2>Seu próximo grande evento começa aqui!</h2>
-                <p id="frase"></p>
+                <h2>Bem-vindo de volta</h2>
+                <p id="frase">Entre para gerenciar seus eventos</p>
 
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="joao@gmail.com">
+                <input type="email" id="email" placeholder="seu@email.com">
 
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" placeholder="Ao menos 8 caracteres">
+                <div class="senha-wrapper">
+                    <input type="password" id="senha" placeholder="Ao menos 8 caracteres">
+                </div>
 
                 <a href="#" class="forgot-password">Esqueceu sua senha?</a>
 
-                <button id="btnEntrar">Entrar</button>
+                <button id="btnEntrar">
+                    Entrar
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
 
-                <div class="ou">──────── Ou ────────</div>
-                
+                <div class="ou"><span>ou continue com</span></div>
+
                 <div class="social-buttons">
                     <button id="btnLoginGoogle">
                         <img src="img/googlelogo.png" alt="Google">
                         Google
                     </button>
-                    <button id="btnLoginEmail">Email</button>
+                    <button id="btnLoginGithub">
+                        <img src="img/githublogo.png" alt="GitHub">
+                        GitHub
+                    </button>
                 </div>
 
-                <p>
+                <p class="rodape-termos">
+                    Ao continuar, você concorda com nossos
+                    <a href="#">Termos</a> e <a href="#">Privacidade</a>
+                </p>
+
+                <p class="link-cadastro">
                     Não tem conta?
                     <a href="pages/cadastro.html">Cadastre-se</a>
                 </p>
@@ -46,8 +78,13 @@
         </section>
 
         <section class="imagem">
-            <img id="imagemAleatoria" src="img/login.jpg">
+            <img id="imagemAleatoria" src="img/login.png" alt="Evento">
+            <div class="imagem-overlay">
+                <h3>Organize eventos incríveis</h3>
+                <p>Gerencie seus eventos de forma profissional e eficiente</p>
+            </div>
         </section>
+
     </main>
 
     <script src="js/telaLogin.js"></script>
