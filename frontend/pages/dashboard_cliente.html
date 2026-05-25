@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventHub — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard_cliente.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-icone">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            EventHub
+            <span class="sidebar-badge">Gestor</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-nav-item ativo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                Dashboard
+            </a>
+            <a href="#" class="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Eventos
+            </a>
+            <a href="#" class="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Participantes
+            </a>
+            <a href="#" class="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M19.07 19.07A10 10 0 0 0 4.93 4.93"/></svg>
+                Configurações
+            </a>
+
+            <div class="sidebar-divisor"></div>
+
+            <a href="#" class="sidebar-nav-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Visão Cliente
+            </a>
+        </nav>
+
+        <div class="sidebar-usuario">
+            <div class="sidebar-usuario-avatar">JD</div>
+            <div class="sidebar-usuario-info">
+                <span class="sidebar-usuario-nome">João Silva</span>
+                <span class="sidebar-usuario-cargo">Administrador</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="main-wrapper">
+
+
+        <!-- MODAL NOVO EVENTO -->
+        <div id="modalEvento" class="modal">
+
+            <div class="modal-conteudo">
+
+                <div class="modal-topo">
+                    <h2>Novo Evento</h2>
+
+                    <button id="fecharModal" class="fechar-modal">
+                        ✕
+                    </button>
+                </div>
+
+            <form id="formEvento">
+
+                <div class="grupo-input">
+                    <label>Nome do Evento</label>
+
+                    <input
+                        type="text"
+                        id="nomeEvento"
+                        placeholder="Digite o nome do evento"
+                    >
+                </div>
+
+                <div class="linha-inputs">
+
+                    <div class="grupo-input">
+                        <label>Horário</label>
+
+                        <input
+                            type="time"
+                            id="horarioEvento"
+                        >
+                    </div>
+
+                    <div class="grupo-input">
+                        <label>Data</label>
+
+                        <input
+                            type="date"
+                            id="dataEvento"
+                        >
+                    </div>
+
+                </div>
+
+                <div class="grupo-input">
+                    <label>Status</label>
+
+                    <select id="statusEvento">
+
+                        <option value="Confirmado">
+                            Confirmado
+                        </option>
+
+                        <option value="Pendente">
+                            Pendente
+                        </option>
+
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-criar-evento">
+                    Criar Evento
+                </button>
+
+            </form>
+
+            </div>
+
+        </div>
+        
+        <!-- TOPBAR DO DASHBOARD -->
+        <header class="dashboard-topbar">
+            <div class="dashboard-search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" placeholder="Buscar eventos...">
+            </div>
+            <div class="dashboard-topbar-acoes">
+                <button class="btn-notificacao" aria-label="Notificações">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notificacao-badge"></span>
+                </button>
+                <button id="btnNovoEvento" class="btn-novo-evento">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Novo Evento
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+
+            <!-- CABEÇALHO DA PÁGINA -->
+            <div class="pagina-cabecalho">
+                <h1>Dashboard</h1>
+                <p>Visão geral dos seus eventos e estatísticas</p>
+            </div>
+
+            <!-- CARDS DE ESTATÍSTICAS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-topo">
+                        <div class="stat-icone">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <span class="stat-variacao positiva">+0%</span>
+                    </div>
+                    <div class="stat-valor">0</div>
+                    <div class="stat-label">Total de Eventos</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-topo">
+                        <div class="stat-icone">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <span class="stat-variacao positiva">+0%</span>
+                    </div>
+                    <div class="stat-valor">0</div>
+                    <div class="stat-label">Participantes</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-topo">
+                        <div class="stat-icone">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                        </div>
+                        <span class="stat-variacao positiva">+0%</span>
+                    </div>
+                    <div class="stat-valor">0%</div>
+                    <div class="stat-label">Taxa de Presença</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-topo">
+                        <div class="stat-icone">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <span class="stat-variacao neutra">0%</span>
+                    </div>
+                    <div class="stat-valor">0</div>
+                    <div class="stat-label">Eventos Hoje</div>
+                </div>
+            </div>
+
+            <!-- CORPO: EVENTOS + CALENDÁRIO -->
+            <div class="dashboard-corpo">
+
+                <!-- PRÓXIMOS EVENTOS -->
+                <section class="proximos-eventos">
+                    <div class="secao-cabecalho">
+                        <h2>Próximos Eventos</h2>
+                        <a href="#" class="link-ver-todos">
+                            Ver todos
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </a>
+                    </div>
+
+                    <div class="eventos-lista"> <!-- Permanece Zerado até adicionar um no botao de novo evento -->
+                             
+                    </div>
+                </section>
+
+                <!-- CALENDÁRIO + EVENTOS HOJE -->
+                <aside class="painel-lateral">
+
+                    <div class="calendario">
+                        <div class="calendario-cabecalho">
+                            <h2>Calendário</h2>
+                            <div class="calendario-nav">
+                                <button class="btn-cal-nav" aria-label="Mês anterior">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                </button>
+                                <span>Maio 2026</span>
+                                <button class="btn-cal-nav" aria-label="Próximo mês">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="calendario-grid">
+                            <div class="cal-dia-semana">D</div>
+                            <div class="cal-dia-semana">S</div>
+                            <div class="cal-dia-semana">T</div>
+                            <div class="cal-dia-semana">Q</div>
+                            <div class="cal-dia-semana">Q</div>
+                            <div class="cal-dia-semana">S</div>
+                            <div class="cal-dia-semana">S</div>
+
+                            <!-- Maio 2026 começa na sexta-feira (índice 5) -->
+                            <div class="cal-dia vazio"></div>
+                            <div class="cal-dia vazio"></div>
+                            <div class="cal-dia vazio"></div>
+                            <div class="cal-dia vazio"></div>
+                            <div class="cal-dia vazio"></div>
+                            <div class="cal-dia">1</div>
+                            <div class="cal-dia">2</div>
+                            <div class="cal-dia">3</div>
+                            <div class="cal-dia">4</div>
+                            <div class="cal-dia">5</div>
+                            <div class="cal-dia">6</div>
+                            <div class="cal-dia">7</div>
+                            <div class="cal-dia">8</div>
+                            <div class="cal-dia">9</div>
+                            <div class="cal-dia">10</div>
+                            <div class="cal-dia">11</div>
+                            <div class="cal-dia">12</div>
+                            <div class="cal-dia">13</div>
+                            <div class="cal-dia">14</div>
+                            <div class="cal-dia">15</div>
+                            <div class="cal-dia">16</div>
+                            <div class="cal-dia">17</div>
+                            <div class="cal-dia">18</div>
+                            <div class="cal-dia">19</div>
+                            <div class="cal-dia">20</div>
+                            <div class="cal-dia">21</div>
+                            <div class="cal-dia">22</div>
+                            <div class="cal-dia">23</div>
+                            <div class="cal-dia">24</div>
+                            <div class="cal-dia hoje">25</div>
+                            <div class="cal-dia">26</div>
+                            <div class="cal-dia">27</div>
+                            <div class="cal-dia evento-marcado">28</div>
+                            <div class="cal-dia">29</div>
+                            <div class="cal-dia">30</div>
+                            <div class="cal-dia">31</div>
+                        </div>
+                    </div>
+
+                    <div class="eventos-hoje">
+                        <h3>Eventos Hoje</h3>
+                        <div class="evento-hoje-item">
+                            <div class="evento-hoje-barra laranja"></div>
+                            <div class="evento-hoje-detalhe">
+                                <span class="evento-hoje-nome">Tech Conference 2026</span>
+                                <span class="evento-hoje-horario">14:00 — 17:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </main>
+    </div>
+<script src="../js/dashboard_cliente.js"></script>
+</body>
+</html>
