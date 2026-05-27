@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
-const jwt    = require("jsonwebtoken");
-const db     = require("../config/db");
+const jwt = require("jsonwebtoken");
+const db = require("../config/db");
 
 async function cadastrar(req, res) {
   const { nome, sobrenome, email, senha } = req.body;
@@ -10,14 +10,15 @@ async function cadastrar(req, res) {
   }
 
   if (senha.length < 6) {
-    return res.status(400).json({ erro: "A senha deve ter ao menos 6 caracteres." });
+    return res
+      .status(400)
+      .json({ erro: "A senha deve ter ao menos 6 caracteres." });
   }
 
   try {
-    const [linhas] = await db.query(
-      "SELECT id FROM usuarios WHERE email = ?",
-      [email]
-    );
+    const [linhas] = await db.query("SELECT id FROM usuarios WHERE email = ?", [
+      email,
+    ]);
 
     if (linhas.length > 0) {
       return res.status(409).json({ erro: "E-mail já cadastrado." });
@@ -27,7 +28,7 @@ async function cadastrar(req, res) {
 
     const [resultado] = await db.query(
       "INSERT INTO usuarios (nome, sobrenome, email, senha_hash) VALUES (?, ?, ?, ?)",
-      [nome, sobrenome, email, senha_hash]
+      [nome, sobrenome, email, senha_hash],
     );
 
     return res.status(201).json({
@@ -53,10 +54,9 @@ async function login(req, res) {
   }
 
   try {
-    const [linhas] = await db.query(
-      "SELECT * FROM usuarios WHERE email = ?",
-      [email]
-    );
+    const [linhas] = await db.query("SELECT * FROM usuarios WHERE email = ?", [
+      email,
+    ]);
 
     if (linhas.length === 0) {
       return res.status(401).json({ erro: "E-mail ou senha incorretos." });
@@ -72,17 +72,17 @@ async function login(req, res) {
     const token = jwt.sign(
       { id: usuario.id, email: usuario.email },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
+      { expiresIn: process.env.JWT_EXPIRES_IN },
     );
 
     return res.status(200).json({
       mensagem: "Login realizado com sucesso!",
       token,
       usuario: {
-        id:        usuario.id,
-        nome:      usuario.nome,
+        id: usuario.id,
+        nome: usuario.nome,
         sobrenome: usuario.sobrenome,
-        email:     usuario.email,
+        email: usuario.email,
       },
     });
   } catch (erro) {

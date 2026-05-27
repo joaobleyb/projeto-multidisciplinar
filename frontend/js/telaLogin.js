@@ -4,12 +4,11 @@ const frases = [
   "Planejar com antecedência é o primeiro passo para garantir eventos organizados, tranquilos e cheios de momentos especiais para todos.",
   "Eventos bem organizados nascem de agendas bem estruturadas, porque cada detalhe faz diferença na experiência final das pessoas.",
   "Uma boa organização transforma ideias em eventos memoráveis, criando experiências únicas desde o primeiro agendamento realizado no sistema.",
-  "Seu próximo grande evento pode começar agora, com um agendamento simples, rápido e organizado em poucos minutos."
+  "Seu próximo grande evento pode começar agora, com um agendamento simples, rápido e organizado em poucos minutos.",
 ];
 
 document.getElementById("frase").textContent =
   frases[Math.floor(Math.random() * frases.length)];
-
 
 // ── LOGIN ─────────────────────────────────────────
 const btnEntrar = document.getElementById("btnEntrar");
@@ -39,6 +38,8 @@ btnEntrar.addEventListener("click", async (event) => {
 
     const dados = await resposta.json();
 
+    localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+
     if (!resposta.ok) {
       alert(dados.erro || "E-mail ou senha incorretos.");
       return;
@@ -49,10 +50,11 @@ btnEntrar.addEventListener("click", async (event) => {
     localStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
     // ── REDIRECIONAR PARA O DASHBOARD ──────────────
-    window.location.href = "pages/dashboard_cliente.html";
-
+    window.location.href = "pages/dashboard_gestor.html";
   } catch (erro) {
-    alert("Não foi possível conectar ao servidor. Verifique se o backend está rodando.");
+    alert(
+      "Não foi possível conectar ao servidor. Verifique se o backend está rodando.",
+    );
   } finally {
     btnEntrar.disabled = false;
     btnEntrar.textContent = "Entrar";
