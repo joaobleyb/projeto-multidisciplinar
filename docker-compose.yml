@@ -16,6 +16,26 @@ services:
     networks:
       - eventhub_net
 
+  backend:
+    build: ./backend
+    container_name: eventhub_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: eventhub_user
+      DB_PASSWORD: eventhub123
+      DB_NAME: eventhub
+      PORT: 3000
+      JWT_SECRET: troque_por_uma_chave_secreta_forte
+      JWT_EXPIRES_IN: 7d
+    depends_on:
+      - mysql
+    networks:
+      - eventhub_net
+
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: eventhub_phpmyadmin
