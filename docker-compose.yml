@@ -1,0 +1,39 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: eventhub_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: eventhub
+      MYSQL_USER: eventhub_user
+      MYSQL_PASSWORD: eventhub123
+    ports:
+      - "3306:3306"
+    volumes:
+      - eventhub_data:/var/lib/mysql
+      - ./banco/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - eventhub_net
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: eventhub_phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: eventhub_user
+      PMA_PASSWORD: eventhub123
+    depends_on:
+      - mysql
+    networks:
+      - eventhub_net
+
+volumes:
+  eventhub_data:
+
+networks:
+  eventhub_net:
+    driver: bridge

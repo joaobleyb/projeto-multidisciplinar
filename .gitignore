@@ -1,0 +1,28 @@
+# ── NODE ─────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── VARIÁVEIS DE AMBIENTE ─────────────────────────
+.env
+.env.local
+.env.production
+
+# ── DOCKER ───────────────────────────────────────
+eventhub_data/
+
+# ── SISTEMA OPERACIONAL ───────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── EDITORES ──────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+
+# ── LOGS ─────────────────────────────────────────
+logs/
+*.log
