@@ -428,7 +428,7 @@ body {
   background: var(--cor-fundo-card);
   border: 1px solid var(--cor-borda);
   border-radius: var(--raio);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .secao-cabecalho {
@@ -935,4 +935,65 @@ body {
 
 .grupo-input select:focus {
   border-color: #f97316;
+}
+
+/* ── MENU CONTEXTO EVENTO ─────────────────────── */
+
+.evento-menu-wrapper {
+  position: relative;
+}
+
+.evento-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #1a1a1a;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+  overflow: hidden;
+  z-index: 100;
+  min-width: 140px;
+  display: none;
+}
+
+.evento-menu-dropdown.ativo {
+  display: block;
+}
+
+.evento-menu-dropdown button {
+  width: 100%;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  color: var(--cor-texto);
+  font-family: var(--fonte);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+
+.evento-menu-dropdown button:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.evento-menu-dropdown button.excluir {
+  color: #f87171;
+}
+
+.evento-menu-dropdown button.excluir:hover {
+  background: rgba(248, 113, 113, 0.08);
+}
+
+.sidebar-nav-item.sair {
+  color: #f87171;
+}
+
+.sidebar-nav-item.sair:hover {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
 }

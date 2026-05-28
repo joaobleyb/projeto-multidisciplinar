@@ -42,3 +42,33 @@ exports.buscarEventosUsuario = async (req, res) => {
     });
   }
 };
+
+exports.excluirEvento = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await pool.query("DELETE FROM eventos WHERE id = ?", [id]);
+
+    res.json({ mensagem: "Evento excluído" });
+  } catch (erro) {
+    console.log(erro);
+    res.status(500).json({ erro: "Erro ao excluir evento" });
+  }
+};
+
+exports.editarEvento = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nome, data, horario, status } = req.body;
+
+    await pool.query(
+      "UPDATE eventos SET nome = ?, data = ?, horario = ?, status = ? WHERE id = ?",
+      [nome, data, horario, status, id]
+    );
+    
+    res.json({ mensagem: "Evento atualizado" });
+  } catch (erro) {
+    console.log(erro);
+    res.status(500).json({ erro: "Erro ao editar evento" });
+  }
+};
