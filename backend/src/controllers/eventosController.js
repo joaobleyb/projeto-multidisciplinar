@@ -1,4 +1,4 @@
-const pool = require("../config/db");
+const pool = require("../config/conexaoDB");
 
 exports.criarEvento = async (req, res) => {
   try {

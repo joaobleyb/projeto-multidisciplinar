@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-function autenticar(req, res, next) {
+function verificarToken(req, res, next) {
   const cabecalho = req.headers["authorization"];
 
   if (!cabecalho || !cabecalho.startsWith("Bearer ")) {
@@ -18,4 +18,4 @@ function autenticar(req, res, next) {
   }
 }
 
-module.exports = autenticar;
+module.exports = verificarToken;
