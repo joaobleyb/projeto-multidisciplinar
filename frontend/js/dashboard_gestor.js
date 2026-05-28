@@ -1,12 +1,19 @@
 const listaEventos = document.getElementById("listaEventos");
+const listaEventosHoje = document.getElementById("listaEventosHoje");
 const totalEventos = document.getElementById("totalEventos");
 
+const btnLogout = document.getElementById("btnLogout");
 const modal = document.getElementById("modalEvento");
 const btnNovoEvento = document.getElementById("btnNovoEvento");
 const fecharModal = document.getElementById("fecharModal");
 const formEvento = document.getElementById("formEvento");
 
 const usuario = JSON.parse(localStorage.getItem("usuario"));
+const token = localStorage.getItem("token");
+
+if (!usuario || !token) {
+  window.location.href = "../index.html";
+}
 
 document.getElementById("nomeUsuario").textContent =
   usuario.nome + " " + usuario.sobrenome;
@@ -38,6 +45,40 @@ async function carregarEventos() {
     listaEventos.innerHTML = "";
 
     totalEventos.textContent = eventos.length;
+
+    listaEventosHoje.innerHTML = "";
+
+    // Tabela de eventos hoje (Abaixo do calendario)
+
+    const hoje = new Date();
+    const hojeFormatado = hoje.toISOString().split("T")[0];
+
+    const eventosHoje = eventos.filter((evento) => {
+      const dataEvento = evento.data.split("T")[0];
+      return dataEvento === hojeFormatado;
+    });
+
+    if (eventosHoje.length === 0) {
+      listaEventosHoje.innerHTML = `
+    <p class="sem-eventos-hoje">Nenhum evento para hoje</p>
+  `;
+    } else {
+      eventosHoje.forEach((evento) => {
+        const itemHoje = document.createElement("div");
+        itemHoje.classList.add("evento-hoje-item");
+
+        itemHoje.innerHTML = `
+      <div class="evento-hoje-barra laranja"></div>
+
+      <div class="evento-hoje-detalhe">
+        <span class="evento-hoje-nome">${evento.nome}</span>
+        <span class="evento-hoje-horario">${evento.horario}</span>
+      </div>
+    `;
+
+        listaEventosHoje.appendChild(itemHoje);
+      });
+    }
 
     eventos.forEach((evento) => {
       console.log(evento.data);
@@ -314,3 +355,14 @@ document
       console.log(erro);
     }
   });
+
+// ── Botão Logout ─────────────────────────────────────────────────────────────────────────────────────────────────── //
+
+btnLogout.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  localStorage.removeItem("usuario");
+  localStorage.removeItem("token");
+
+  window.location.href = "../index.html";
+});

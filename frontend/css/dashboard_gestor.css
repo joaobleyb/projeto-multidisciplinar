@@ -997,3 +997,9 @@ body {
   background: rgba(248, 113, 113, 0.1);
   color: #f87171;
 }
+
+.sem-eventos-hoje {
+  font-size: 0.8rem;
+  color: var(--cor-texto-secundario);
+  padding: 8px 0;
+}
