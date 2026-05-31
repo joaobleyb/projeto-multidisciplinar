@@ -24,6 +24,12 @@ exports.criarEvento = async (req, res) => {
 
     const { nome, descricao, foto, data, horario, status, usuario_id } = req.body;
 
+    if (!nome || !data || !horario) {
+      return res.status(400).json({
+        erro: "Campos obrigatórios"
+      });
+    }
+
     const sql = `
             INSERT INTO eventos
             (nome, descricao, foto, data, horario, status, usuario_id)

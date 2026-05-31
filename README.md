@@ -184,3 +184,13 @@ Após subir os containers, acesse `http://localhost:8080` com:
 
 - **Usuário:** `eventhub_user`
 - **Senha:** `eventhub123`
+
+## Testes - Pendentes
+
+Para Rodar os testes:
+
+```bash
+npm test
+```
+
+OBS: Testes ainda estão incompletos (Ainda aprendendo como funciona os testes em JS e NODEjs)
