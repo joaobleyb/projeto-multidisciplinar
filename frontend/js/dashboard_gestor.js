@@ -200,7 +200,7 @@ async function carregarEventos() {
                     <h3>${evento.nome}</h3>
 
                     <div class="evento-meta">
-                        <span>0 Participantes</span>
+                        <span id="participantes-evento-${evento.id}">0 Participantes</span>
 
                         <span class="badge ${evento.status}">
                             ${evento.status}
@@ -221,6 +221,19 @@ async function carregarEventos() {
         `;
 
       listaEventos.prepend(card);
+
+      fetch(`http://localhost:3000/api/participantes/evento/${evento.id}`)
+        .then((r) => r.json())
+        .then((participantes) => {
+          const el = document.getElementById(
+            `participantes-evento-${evento.id}`,
+          );
+          if (el) {
+            el.textContent = `${participantes.length} Participante${participantes.length !== 1 ? "s" : ""}`;
+          }
+        })
+        .catch(() => {});
+
       const btnMenu = card.querySelector(".evento-menu");
       const dropdown = card.querySelector(".evento-menu-dropdown");
 
