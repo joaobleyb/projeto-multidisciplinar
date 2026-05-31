@@ -195,3 +195,57 @@
     grid-template-columns: 1fr;
   }
 }
+
+.btn-inscricao {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: var(--raio);
+  font-family: var(--fonte);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-inscricao.inscrito {
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.btn-inscricao.inscrito:hover {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.2);
+}
+
+.btn-inscricao.inscrito:hover::after {
+  content: " (cancelar)";
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.btn-inscricao:not(.inscrito) {
+  background: var(--cor-destaque);
+  color: #fff;
+}
+
+.btn-inscricao:not(.inscrito):hover {
+  background: var(--cor-destaque-hover);
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.3);
+}
+
+.btn-inscricao:active {
+  transform: scale(0.98);
+}
+
+.btn-inscricao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}

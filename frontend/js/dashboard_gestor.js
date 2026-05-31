@@ -1,6 +1,5 @@
 // ── EVENTHUB DASHBOARD GESTOR ───────────────────────────────────────────────────────── //
 // Controle de eventos do gestor, modal de cadastro/edição, e calendário.
-
 const listaEventos = document.getElementById("listaEventos");
 const listaEventosHoje = document.getElementById("listaEventosHoje");
 const totalEventos = document.getElementById("totalEventos");
@@ -115,6 +114,13 @@ async function carregarEventos() {
 
     totalEventos.textContent = eventos.length;
 
+    fetch(`http://localhost:3000/api/participantes/total/gestor/${usuario.id}`)
+      .then((r) => r.json())
+      .then((dados) => {
+        document.querySelectorAll(".stat-valor")[1].textContent = dados.total;
+      })
+      .catch(() => {});
+
     listaEventosHoje.innerHTML = "";
 
     // Tabela de eventos hoje (Abaixo do calendario)
@@ -205,6 +211,7 @@ async function carregarEventos() {
                 <div class="evento-menu-wrapper">
                     <button class="evento-menu">⋮</button>
                     <div class="evento-menu-dropdown">
+                        <button class="participantes">👥 Participantes</button>
                         <button class="editar">✏️ Editar</button>
                         <button class="excluir">🗑️ Excluir</button>
                     </div>
@@ -228,6 +235,10 @@ async function carregarEventos() {
 
       card.querySelector(".editar").addEventListener("click", () => {
         abrirEdicao(evento);
+      });
+
+      card.querySelector(".participantes").addEventListener("click", () => {
+        abrirParticipantes(evento.id, evento.nome);
       });
     });
   } catch (erro) {
@@ -451,6 +462,64 @@ document
       console.log(erro);
     }
   });
+
+// ── MODAL PARTICIPANTES ───────────────────────────────────────── //
+
+document
+  .getElementById("fecharModalParticipantes")
+  .addEventListener("click", () => {
+    document.getElementById("modalParticipantes").classList.remove("ativo");
+  });
+
+async function abrirParticipantes(eventoId, nomeEvento) {
+  const modal = document.getElementById("modalParticipantes");
+  const lista = document.getElementById("listaParticipantes");
+  const count = document.getElementById("participantesCount");
+
+  modal.querySelector("h2").textContent = `Participantes — ${nomeEvento}`;
+  lista.innerHTML = "";
+  count.textContent = "Carregando...";
+  modal.classList.add("ativo");
+
+  try {
+    const resposta = await fetch(
+      `http://localhost:3000/api/participantes/evento/${eventoId}`,
+    );
+    const participantes = await resposta.json();
+
+    count.textContent = `${participantes.length} participante${participantes.length !== 1 ? "s" : ""}`;
+
+    if (participantes.length === 0) {
+      lista.innerHTML =
+        '<p class="participantes-vazio">Nenhum participante inscrito ainda.</p>';
+      return;
+    }
+
+    participantes.forEach((p) => {
+      const iniciais = p.nome
+        .split(" ")
+        .map((n) => n.charAt(0).toUpperCase())
+        .slice(0, 2)
+        .join("");
+
+      const item = document.createElement("div");
+      item.classList.add("participante-item");
+      item.innerHTML = `
+        <div class="participante-avatar">${iniciais}</div>
+        <div class="participante-info">
+          <span class="participante-nome">${p.nome}</span>
+          <span class="participante-email">${p.email}</span>
+        </div>
+      `;
+      lista.appendChild(item);
+    });
+  } catch (erro) {
+    count.textContent = "";
+    lista.innerHTML =
+      '<p class="participantes-vazio" style="color:#f87171">Erro ao carregar participantes.</p>';
+    console.log(erro);
+  }
+}
 
 // Logout do usuário e retorno à tela de login
 

@@ -1038,3 +1038,68 @@ body {
   color: var(--cor-texto-secundario);
   padding: 8px 0;
 }
+
+/* ── MODAL PARTICIPANTES ─────────────────────── */
+
+.participantes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.participante-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #181818;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+}
+
+.participante-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--cor-destaque-fundo);
+  color: var(--cor-destaque);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.participante-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.participante-nome {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.participante-email {
+  font-size: 0.75rem;
+  color: var(--cor-texto-secundario);
+}
+
+.participantes-vazio {
+  text-align: center;
+  padding: 2rem;
+  color: var(--cor-texto-secundario);
+  font-size: 0.875rem;
+}
+
+.participantes-count {
+  font-size: 0.8rem;
+  color: var(--cor-texto-secundario);
+  margin-bottom: 12px;
+}

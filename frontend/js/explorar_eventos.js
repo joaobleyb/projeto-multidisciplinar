@@ -38,6 +38,7 @@ const meses = [
 ];
 
 let todosEventos = [];
+let inscricoesUsuario = new Set();
 
 // Escapa texto para evitar injeção de HTML nos cards
 function escaparHtml(valor = "") {
@@ -57,8 +58,15 @@ function escaparHtml(valor = "") {
 // Busca eventos disponíveis e renderiza a lista
 async function carregarEventos() {
   try {
-    const resposta = await fetch("http://localhost:3000/api/eventos");
-    todosEventos = await resposta.json();
+    const [resEventos, resInscricoes] = await Promise.all([
+      fetch("http://localhost:3000/api/eventos"),
+      fetch(`http://localhost:3000/api/participantes/usuario/${usuario.id}`),
+    ]);
+
+    todosEventos = await resEventos.json();
+    const ids = await resInscricoes.json();
+    inscricoesUsuario = new Set(ids);
+
     renderizarEventos(todosEventos);
   } catch (erro) {
     console.log(erro);
@@ -105,6 +113,8 @@ function renderizarEventos(eventos) {
       ? `<img class="evento-foto" src="${evento.foto}" alt="Foto do evento" />`
       : `<div class="evento-foto-placeholder">Sem foto</div>`;
 
+    const jaInscrito = inscricoesUsuario.has(evento.id);
+
     card.innerHTML = `
       ${fotoEvento}
 
@@ -131,11 +141,20 @@ function renderizarEventos(eventos) {
         <div class="evento-gestor-avatar">${iniciaisGestor}</div>
         ${gestorNome}
       </div>
+
+      <button class="btn-inscricao ${jaInscrito ? "inscrito" : ""}" data-evento-id="${evento.id}">
+        ${jaInscrito ? "✓ Inscrito" : "Inscrever-se"}
+      </button>
     `;
 
-    listaEventos.appendChild(card);
-  });
-}
+    const btnInscricao = card.querySelector(".btn-inscricao");
+    btnInscricao.addEventListener("click", () =>
+      alternarInscricao(evento.id, btnInscricao),
+    );
+
+    listaEventos.appendChild(card); // ← essa linha também precisa estar aqui
+  }); // ← fecha o forEach
+} // ← fecha o renderizarEventos
 
 // Filtra eventos pelo nome e pelo status selecionado
 function filtrar() {
@@ -149,6 +168,52 @@ function filtrar() {
   });
 
   renderizarEventos(eventosFiltrados);
+}
+
+async function alternarInscricao(eventoId, btn) {
+  btn.disabled = true;
+  const jaInscrito = inscricoesUsuario.has(eventoId);
+
+  try {
+    if (jaInscrito) {
+      if (!confirm("Deseja cancelar sua inscrição neste evento?")) {
+        btn.disabled = false;
+        return;
+      }
+
+      await fetch(
+        `http://localhost:3000/api/participantes/${eventoId}/usuario/${usuario.id}`,
+        { method: "DELETE" },
+      );
+
+      inscricoesUsuario.delete(eventoId);
+      btn.textContent = "Inscrever-se";
+      btn.classList.remove("inscrito");
+    } else {
+      const resposta = await fetch("http://localhost:3000/api/participantes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario_id: usuario.id, evento_id: eventoId }),
+      });
+
+      const dados = await resposta.json();
+
+      if (!resposta.ok) {
+        alert(dados.erro || "Erro ao se inscrever.");
+        btn.disabled = false;
+        return;
+      }
+
+      inscricoesUsuario.add(eventoId);
+      btn.textContent = "✓ Inscrito";
+      btn.classList.add("inscrito");
+    }
+  } catch (erro) {
+    alert("Erro de conexão com o servidor.");
+    console.log(erro);
+  }
+
+  btn.disabled = false;
 }
 
 campoBusca.addEventListener("input", filtrar);

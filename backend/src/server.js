@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const authRoutes = require("./routes/autenticacao");
 const eventosRoutes = require("./routes/eventos");
+const participantesRoutes = require("./routes/participantes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ app.use(express.json({ limit: "8mb" }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/eventos", eventosRoutes);
+app.use("/api/participantes", participantesRoutes);
 
 app.get("/api/ping", (req, res) => {
   res.json({ status: "ok", mensagem: "EventHub API rodando!" });
