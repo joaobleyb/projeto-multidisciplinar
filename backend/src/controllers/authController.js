@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 const db = require("../config/conexaoDB");
 
 async function cadastrar(req, res) {
-  const { nome, sobrenome, email, senha } = req.body;
+  const { nome, sobrenome, email, senha, tipo } = req.body;
 
-  if (!nome || !sobrenome || !email || !senha) {
+  if (!nome || !sobrenome || !email || !senha || !tipo) {
     return res.status(400).json({ erro: "Preencha todos os campos." });
   }
 
@@ -27,8 +27,8 @@ async function cadastrar(req, res) {
     const senha_hash = await bcrypt.hash(senha, 10);
 
     const [resultado] = await db.query(
-      "INSERT INTO usuarios (nome, sobrenome, email, senha_hash) VALUES (?, ?, ?, ?)",
-      [nome, sobrenome, email, senha_hash],
+      "INSERT INTO usuarios (nome, sobrenome, email, tipo, senha_hash) VALUES (?, ?, ?, ?, ?)",
+      [nome, sobrenome, email, tipo, senha_hash],
     );
 
     return res.status(201).json({
@@ -38,6 +38,7 @@ async function cadastrar(req, res) {
         nome,
         sobrenome,
         email,
+        tipo,
       },
     });
   } catch (erro) {
@@ -83,6 +84,7 @@ async function login(req, res) {
         nome: usuario.nome,
         sobrenome: usuario.sobrenome,
         email: usuario.email,
+        tipo: usuario.tipo,
       },
     });
   } catch (erro) {

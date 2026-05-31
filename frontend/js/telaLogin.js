@@ -10,9 +10,13 @@ const frases = [
 document.getElementById("frase").textContent =
   frases[Math.floor(Math.random() * frases.length)];
 
+// ── EVENTHUB LOGIN ─────────────────────────────────────────────────────────────── //
+
+// Garante login do usuário, valida campos e redireciona para o dashboard correto.
 // ── LOGIN ─────────────────────────────────────────
 const btnEntrar = document.getElementById("btnEntrar");
 
+// Processa o login e redireciona o usuário
 btnEntrar.addEventListener("click", async (event) => {
   event.preventDefault(); // Para previnir de dar reload no codigo antes de preencher
 
@@ -50,7 +54,11 @@ btnEntrar.addEventListener("click", async (event) => {
     localStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
     // ── REDIRECIONAR PARA O DASHBOARD ──────────────
-    window.location.href = "pages/dashboard_gestor.html";
+    if (dados.usuario.tipo === "gestor") {
+      window.location.href = "pages/dashboard_gestor.html";
+    } else {
+      window.location.href = "pages/dashboard_cliente.html";
+    }
   } catch (erro) {
     alert(
       "Não foi possível conectar ao servidor. Verifique se o backend está rodando.",

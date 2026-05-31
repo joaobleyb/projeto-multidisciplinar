@@ -1,3 +1,25 @@
+// ── EVENTHUB CADASTRO ───────────────────────────────────────────────────────────── //
+// Gerencia o formulário de cadastro, tipo de conta e envio para o backend.
+// ── SELETOR DE TIPO DE CONTA ──────────────────
+let tipoConta = null;
+
+const btnTipoGestor = document.getElementById("btnTipoGestor");
+const btnTipoCliente = document.getElementById("btnTipoCliente");
+
+// Define o tipo de conta como gestor
+btnTipoGestor.addEventListener("click", () => {
+  tipoConta = "gestor";
+  btnTipoGestor.classList.add("selecionado");
+  btnTipoCliente.classList.remove("selecionado");
+});
+
+// Define o tipo de conta como cliente
+btnTipoCliente.addEventListener("click", () => {
+  tipoConta = "cliente";
+  btnTipoCliente.classList.add("selecionado");
+  btnTipoGestor.classList.remove("selecionado");
+});
+
 // Gerador de frases aleatorias para a tela de cadastro
 
 const frases = [
@@ -16,6 +38,7 @@ document.getElementById("frase").textContent = fraseAleatoria;
 
 const btnCadastrar = document.getElementById("btnCadastrar");
 
+// Envia o formulário de cadastro para o backend
 btnCadastrar.addEventListener("click", async (event) => {
   // Async para poder usar o await no codigo
   event.preventDefault(); // Previne de dar reload antes de preencher todos os campos
@@ -48,6 +71,11 @@ btnCadastrar.addEventListener("click", async (event) => {
     return;
   }
 
+  if (!tipoConta) {
+    alert("Selecione o tipo de conta: Gestor ou Cliente.");
+    return;
+  }
+
   // ── ENVIAR PARA O BACKEND ──────────────────────
 
   try {
@@ -57,7 +85,7 @@ btnCadastrar.addEventListener("click", async (event) => {
     const resposta = await fetch("http://localhost:3000/api/auth/cadastrar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, sobrenome, email, senha }),
+      body: JSON.stringify({ nome, sobrenome, email, senha, tipo: tipoConta }),
     });
 
     const dados = await resposta.json();

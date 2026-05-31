@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EventHub — Dashboard</title>
+    <title>EventHub — Meus Eventos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../css/dashboard_gestor.css" />
+    <link rel="stylesheet" href="../css/dashboard_cliente.css" />
   </head>
   <body>
     <!-- SIDEBAR -->
@@ -33,7 +33,7 @@
           </svg>
         </div>
         EventHub
-        <span class="sidebar-badge">Gestor</span>
+        <span class="sidebar-badge">Cliente</span>
       </div>
 
       <nav class="sidebar-nav">
@@ -53,9 +53,9 @@
             <rect x="14" y="14" width="7" height="7" />
             <rect x="3" y="14" width="7" height="7" />
           </svg>
-          Dashboard
+          Início
         </a>
-        <a href="#" class="sidebar-nav-item">
+        <a href="explorar_eventos.html" class="sidebar-nav-item">
           <svg
             width="18"
             height="18"
@@ -66,13 +66,12 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           >
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          Participantes
+          Explorar Eventos
         </a>
+
         <a href="#" class="sidebar-nav-item">
           <svg
             width="18"
@@ -93,6 +92,7 @@
         </a>
 
         <div class="sidebar-divisor"></div>
+
         <a href="#" class="sidebar-nav-item sair" id="btnLogout">
           <svg
             width="18"
@@ -113,11 +113,11 @@
       </nav>
 
       <div class="sidebar-usuario">
-        <div class="sidebar-usuario-avatar">JD</div>
+        <div class="sidebar-usuario-avatar" id="avatarIniciais">JD</div>
         <div class="sidebar-usuario-info">
-          <span class="sidebar-usuario-nome" id="nomeUsuario">Usuario</span>
+          <span class="sidebar-usuario-nome" id="nomeUsuario">Usuário</span>
           <span class="sidebar-usuario-cargo" id="emailUsuario"
-            >Administrador</span
+            >cliente@email.com</span
           >
         </div>
       </div>
@@ -125,157 +125,7 @@
 
     <!-- CONTEÚDO PRINCIPAL -->
     <div class="main-wrapper">
-      <!-- MODAL NOVO EVENTO -->
-      <div id="modalEvento" class="modal">
-        <div class="modal-conteudo">
-          <div class="modal-topo">
-            <h2>Novo Evento</h2>
-
-            <button id="fecharModal" class="fechar-modal">×</button>
-          </div>
-
-          <form id="formEvento">
-            <div class="grupo-input">
-              <label>Nome do Evento</label>
-
-              <input
-                type="text"
-                id="nomeEvento"
-                placeholder="Digite o nome do evento"
-              />
-            </div>
-
-            <div class="grupo-input">
-              <label>Descrição do Evento</label>
-
-              <textarea
-                id="descricaoEvento"
-                rows="3"
-                placeholder="Conte um pouco sobre o evento"
-              ></textarea>
-            </div>
-
-            <div class="grupo-input">
-              <label>Foto do Evento</label>
-
-              <input
-                type="file"
-                id="fotoEvento"
-                class="input-file-evento"
-                accept="image/*"
-              />
-            </div>
-
-            <div class="linha-inputs">
-              <div class="grupo-input">
-                <label>Horário</label>
-
-                <input type="time" id="horarioEvento" />
-              </div>
-
-              <div class="grupo-input">
-                <label>Data</label>
-
-                <input type="date" id="dataEvento" />
-              </div>
-            </div>
-
-            <div class="grupo-input">
-              <label>Status</label>
-
-              <select id="statusEvento">
-                <option value="Confirmado">Confirmado</option>
-
-                <option value="Pendente">Pendente</option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn-criar-evento">Criar Evento</button>
-          </form>
-        </div>
-      </div>
-
-      <!-- MODAL EDITAR EVENTO -->
-      <div id="modalEditarEvento" class="modal">
-        <div class="modal-conteudo">
-          <div class="modal-topo">
-            <h2>Editar Evento</h2>
-            <button id="fecharModalEditar" class="fechar-modal">×</button>
-          </div>
-
-          <form id="formEditarEvento">
-            <input type="hidden" id="editarId" />
-            <input type="hidden" id="editarFotoAtual" />
-
-            <div class="grupo-input">
-              <label>Nome do Evento</label>
-              <input
-                type="text"
-                id="editarNome"
-                placeholder="Digite o nome do evento"
-              />
-            </div>
-
-            <div class="grupo-input">
-              <label>Descrição do Evento</label>
-              <textarea
-                id="editarDescricao"
-                rows="3"
-                placeholder="Conte um pouco sobre o evento"
-              ></textarea>
-            </div>
-
-            <div class="grupo-input">
-              <label>Foto do Evento</label>
-              <input
-                type="file"
-                id="editarFoto"
-                class="input-file-evento"
-                accept="image/*"
-              />
-              <img
-                id="editarFotoPreview"
-                class="preview-foto-evento"
-                alt="Foto atual do evento"
-                style="display: none"
-              />
-              <button
-                type="button"
-                id="removerFotoEditar"
-                class="btn-remover-foto"
-                style="display: none"
-              >
-                Remover foto
-              </button>
-            </div>
-
-            <div class="linha-inputs">
-              <div class="grupo-input">
-                <label>Horário</label>
-                <input type="time" id="editarHorario" />
-              </div>
-              <div class="grupo-input">
-                <label>Data</label>
-                <input type="date" id="editarData" />
-              </div>
-            </div>
-
-            <div class="grupo-input">
-              <label>Status</label>
-              <select id="editarStatus">
-                <option value="Confirmado">Confirmado</option>
-                <option value="Pendente">Pendente</option>
-              </select>
-            </div>
-
-            <button type="submit" class="btn-criar-evento">
-              Salvar Alterações
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <!-- TOPBAR DO DASHBOARD -->
+      <!-- TOPBAR -->
       <header class="dashboard-topbar">
         <div class="dashboard-search">
           <svg
@@ -310,34 +160,43 @@
             </svg>
             <span class="notificacao-badge"></span>
           </button>
-          <button id="btnNovoEvento" class="btn-novo-evento">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            Novo Evento
-          </button>
         </div>
       </header>
 
       <main class="dashboard-main">
-        <!-- CABEÇALHO DA PÁGINA -->
-        <div class="pagina-cabecalho">
-          <h1>Dashboard</h1>
-          <p>Visão geral dos seus eventos e estatísticas</p>
+        <!-- BOAS-VINDAS -->
+        <div class="boas-vindas">
+          <div class="boas-vindas-texto">
+            <h1>Olá, <span id="nomeBoasVindas">Usuário</span> 👋</h1>
+            <p>Acompanhe os eventos em que você está inscrito</p>
+          </div>
         </div>
 
         <!-- CARDS DE ESTATÍSTICAS -->
         <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-topo">
+              <div class="stat-icone">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-valor" id="totalInscricoes">0</div>
+            <div class="stat-label">Inscrições Ativas</div>
+          </div>
+
           <div class="stat-card">
             <div class="stat-card-topo">
               <div class="stat-icone">
@@ -358,32 +217,8 @@
                 </svg>
               </div>
             </div>
-            <div class="stat-valor" id="totalEventos">0</div>
-            <div class="stat-label">Total de Eventos</div>
-          </div>
-
-          <div class="stat-card">
-            <div class="stat-card-topo">
-              <div class="stat-icone">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                </svg>
-              </div>
-            </div>
-            <div class="stat-valor">0</div>
-            <div class="stat-label">Participantes</div>
+            <div class="stat-valor" id="totalEventosHoje">0</div>
+            <div class="stat-label">Eventos Hoje</div>
           </div>
 
           <div class="stat-card">
@@ -404,8 +239,8 @@
                 </svg>
               </div>
             </div>
-            <div class="stat-valor">0</div>
-            <div class="stat-label">Taxa de Presença</div>
+            <div class="stat-valor" id="totalConfirmados">0</div>
+            <div class="stat-label">Confirmados</div>
           </div>
 
           <div class="stat-card">
@@ -426,42 +261,44 @@
                 </svg>
               </div>
             </div>
-            <div class="stat-valor">0</div>
-            <div class="stat-label">Eventos Hoje</div>
+            <div class="stat-valor" id="proximoEvento">—</div>
+            <div class="stat-label">Próximo Evento</div>
           </div>
         </div>
 
-        <!-- CORPO: EVENTOS + CALENDÁRIO -->
+        <!-- CORPO -->
         <div class="dashboard-corpo">
-          <!-- PRÓXIMOS EVENTOS -->
-          <section class="proximos-eventos">
+          <!-- MEUS EVENTOS -->
+          <section class="meus-eventos">
             <div class="secao-cabecalho">
-              <h2>Próximos Eventos</h2>
-              <a href="#" class="link-ver-todos">
-                Ver todos
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
-              </a>
+              <h2>Meus Eventos</h2>
             </div>
 
             <div class="eventos-lista" id="listaEventos">
-              <!-- Permanece zerado até adicionar um no botão de novo evento -->
+              <div class="estado-vazio" id="estadoVazio">
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                <p>Você ainda não está inscrito em nenhum evento</p>
+              </div>
             </div>
           </section>
 
-          <!-- CALENDÁRIO + EVENTOS HOJE -->
+          <!-- PAINEL LATERAL -->
           <aside class="painel-lateral">
+            <!-- CALENDÁRIO -->
             <div class="calendario">
               <div class="calendario-cabecalho">
                 <h2>Calendário</h2>
@@ -480,7 +317,7 @@
                       <polyline points="15 18 9 12 15 6" />
                     </svg>
                   </button>
-                  <span>Maio 2026</span>
+                  <span id="tituloMes">Maio 2026</span>
                   <button class="btn-cal-nav" aria-label="Próximo mês">
                     <svg
                       width="14"
@@ -509,17 +346,18 @@
               </div>
             </div>
 
+            <!-- EVENTOS HOJE -->
             <div class="eventos-hoje">
               <h3>Eventos Hoje</h3>
-
               <div id="listaEventosHoje">
-                <!-- Os eventos de hoje aparecem aqui pelo JavaScript -->
+                <p class="sem-eventos-hoje">Nenhum evento para hoje</p>
               </div>
             </div>
           </aside>
         </div>
       </main>
     </div>
-    <script src="../js/dashboard_gestor.js"></script>
+
+    <script src="../js/dashboard_cliente.js"></script>
   </body>
 </html>

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nome        VARCHAR(100)  NOT NULL,
   sobrenome   VARCHAR(100)  NOT NULL,
   email       VARCHAR(255)  NOT NULL UNIQUE,
+  tipo        ENUM('gestor', 'cliente') NOT NULL DEFAULT 'cliente',
   senha_hash  VARCHAR(255)  NOT NULL,
   criado_em   DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -25,6 +26,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
 CREATE TABLE IF NOT EXISTS eventos (
   id          INT           NOT NULL AUTO_INCREMENT,
   nome        VARCHAR(255)  NOT NULL,
+  descricao   TEXT          NULL,
+  foto        LONGTEXT      NULL,
   data        DATE          NOT NULL,
   horario     TIME          NOT NULL,
   status      ENUM('Confirmado', 'Pendente') NOT NULL DEFAULT 'Pendente',

@@ -1,3 +1,6 @@
+// ── EVENTHUB DASHBOARD GESTOR ───────────────────────────────────────────────────────── //
+// Controle de eventos do gestor, modal de cadastro/edição, e calendário.
+
 const listaEventos = document.getElementById("listaEventos");
 const listaEventosHoje = document.getElementById("listaEventosHoje");
 const totalEventos = document.getElementById("totalEventos");
@@ -7,6 +10,11 @@ const modal = document.getElementById("modalEvento");
 const btnNovoEvento = document.getElementById("btnNovoEvento");
 const fecharModal = document.getElementById("fecharModal");
 const formEvento = document.getElementById("formEvento");
+const inputFotoEvento = document.getElementById("fotoEvento");
+const inputEditarFoto = document.getElementById("editarFoto");
+const editarFotoAtual = document.getElementById("editarFotoAtual");
+const editarFotoPreview = document.getElementById("editarFotoPreview");
+const removerFotoEditar = document.getElementById("removerFotoEditar");
 
 const usuario = JSON.parse(localStorage.getItem("usuario"));
 const token = localStorage.getItem("token");
@@ -20,13 +28,74 @@ document.getElementById("nomeUsuario").textContent =
 
 document.getElementById("emailUsuario").textContent = usuario.email;
 
-// Muda o html para modal ativo que aciona o css e faz aparecer o modal na tela────────────────────────────────────────────────────────── //
+// ── REDIMENSIONAR FOTO DO EVENTO ─────────────────────────────────────────────────────── //
+
+function redimensionarFoto(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const imagem = new Image();
+
+      imagem.onload = () => {
+        const tamanhoMaximo = 900;
+        const escala = Math.min(
+          tamanhoMaximo / imagem.width,
+          tamanhoMaximo / imagem.height,
+          1,
+        );
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(imagem.width * escala);
+        canvas.height = Math.round(imagem.height * escala);
+
+        const contexto = canvas.getContext("2d");
+        contexto.drawImage(imagem, 0, 0, canvas.width, canvas.height);
+
+        resolve(canvas.toDataURL("image/jpeg", 0.78));
+      };
+
+      imagem.onerror = reject;
+      imagem.src = reader.result;
+    };
+
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function lerFotoEvento(input) {
+  const file = input.files[0];
+
+  if (!file) return "";
+
+  if (!file.type.startsWith("image/")) {
+    alert("Selecione um arquivo de imagem.");
+    return "";
+  }
+
+  return redimensionarFoto(file);
+}
+
+function atualizarPreviewEdicao(foto) {
+  if (!foto) {
+    editarFotoPreview.style.display = "none";
+    removerFotoEditar.style.display = "none";
+    editarFotoPreview.removeAttribute("src");
+    return;
+  }
+
+  editarFotoPreview.src = foto;
+  editarFotoPreview.style.display = "block";
+  removerFotoEditar.style.display = "inline-flex";
+}
+
+// Abre o modal de novo evento
 
 btnNovoEvento.addEventListener("click", () => {
   modal.classList.add("ativo");
 });
 
-// Muda o html para modal novamente que desativa o css─────────────────────────────────────────────────────────────────────────────────── //
+// Fecha o modal de novo evento
 
 fecharModal.addEventListener("click", () => {
   modal.classList.remove("ativo");
@@ -166,7 +235,7 @@ async function carregarEventos() {
   }
 }
 
-// ── Cria os eventos ────────────────────────────────────────────────────────────────────────────────────────────────────────────── //
+// ── Cria os eventos que esta no eventosController.js ─────────────────────────────────────────────────────────────────────────────────────────────────────── //
 
 formEvento.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -174,6 +243,8 @@ formEvento.addEventListener("submit", async (e) => {
   try {
     const evento = {
       nome: document.getElementById("nomeEvento").value,
+      descricao: document.getElementById("descricaoEvento").value.trim(),
+      foto: await lerFotoEvento(inputFotoEvento),
       data: document.getElementById("dataEvento").value,
       horario: document.getElementById("horarioEvento").value,
       status: document.getElementById("statusEvento").value,
@@ -261,8 +332,12 @@ function gerarCalendario(mes, ano) {
   }
 }
 
-// Botões de navegação
+// Botão para ir ao mês anterior
+
 const btnAnterior = document.querySelectorAll(".btn-cal-nav")[0];
+
+// Botão para ir ao próximo mês
+
 const btnProximo = document.querySelectorAll(".btn-cal-nav")[1];
 
 btnAnterior.addEventListener("click", () => {
@@ -315,6 +390,10 @@ async function excluirEvento(id) {
 function abrirEdicao(evento) {
   document.getElementById("editarId").value = evento.id;
   document.getElementById("editarNome").value = evento.nome;
+  document.getElementById("editarDescricao").value = evento.descricao || "";
+  editarFotoAtual.value = evento.foto || "";
+  inputEditarFoto.value = "";
+  atualizarPreviewEdicao(evento.foto);
   document.getElementById("editarHorario").value = evento.horario;
   document.getElementById("editarData").value = evento.data.split("T")[0];
   document.getElementById("editarStatus").value = evento.status;
@@ -328,15 +407,32 @@ document.getElementById("fecharModalEditar").addEventListener("click", () => {
 });
 
 // Salvar edição
+// Remove a foto atual no formulário de edição
+removerFotoEditar.addEventListener("click", () => {
+  editarFotoAtual.value = "";
+  inputEditarFoto.value = "";
+  atualizarPreviewEdicao("");
+});
+
+// Atualiza o preview de imagem quando o usuário troca a foto
+inputEditarFoto.addEventListener("change", async () => {
+  const novaFoto = await lerFotoEvento(inputEditarFoto);
+  if (novaFoto) atualizarPreviewEdicao(novaFoto);
+});
+
+// Envia a edição do evento para o backend
 document
   .getElementById("formEditarEvento")
   .addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const id = document.getElementById("editarId").value;
+    const novaFoto = await lerFotoEvento(inputEditarFoto);
 
     const evento = {
       nome: document.getElementById("editarNome").value,
+      descricao: document.getElementById("editarDescricao").value.trim(),
+      foto: novaFoto || editarFotoAtual.value || null,
       data: document.getElementById("editarData").value,
       horario: document.getElementById("editarHorario").value,
       status: document.getElementById("editarStatus").value,
@@ -356,7 +452,7 @@ document
     }
   });
 
-// ── Botão Logout ─────────────────────────────────────────────────────────────────────────────────────────────────── //
+// Logout do usuário e retorno à tela de login
 
 btnLogout.addEventListener("click", (e) => {
   e.preventDefault();

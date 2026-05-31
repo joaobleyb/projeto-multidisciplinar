@@ -446,3 +446,56 @@ body {
   height: 20px;
   object-fit: contain;
 }
+
+/* ── SELETOR DE TIPO DE CONTA ────────────────── */
+
+.tipo-conta-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 0.25rem;
+}
+
+.tipo-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 10px;
+  background: var(--cor-input);
+  border: 2px solid var(--cor-borda);
+  border-radius: var(--raio);
+  color: var(--cor-texto-secundario);
+  font-family: var(--fonte);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
+  text-align: center;
+}
+
+.tipo-btn:hover {
+  border-color: var(--cor-borda-hover);
+  color: var(--cor-texto);
+  background: var(--cor-input-foco);
+}
+
+.tipo-btn.selecionado {
+  border-color: var(--cor-destaque);
+  background: rgba(249, 115, 22, 0.08);
+  color: var(--cor-destaque);
+  box-shadow: var(--sombra-laranja);
+}
+
+.tipo-btn-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.tipo-btn-desc {
+  font-size: 0.72rem;
+  font-weight: 400;
+  opacity: 0.75;
+}
