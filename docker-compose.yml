@@ -51,6 +51,19 @@ services:
     networks:
       - eventhub_net
 
+  frontend:
+    image: nginx:alpine
+    container_name: eventhub_frontend
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+    networks:
+      - eventhub_net
+
 volumes:
   eventhub_data:
 

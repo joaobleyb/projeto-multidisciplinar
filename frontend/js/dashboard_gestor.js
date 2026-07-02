@@ -15,8 +15,8 @@ const editarFotoAtual = document.getElementById("editarFotoAtual");
 const editarFotoPreview = document.getElementById("editarFotoPreview");
 const removerFotoEditar = document.getElementById("removerFotoEditar");
 
-const usuario = JSON.parse(localStorage.getItem("usuario"));
-const token = localStorage.getItem("token");
+const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+const token = sessionStorage.getItem("token");
 
 if (!usuario || !token) {
   window.location.href = "../index.html";
@@ -539,8 +539,8 @@ async function abrirParticipantes(eventoId, nomeEvento) {
 btnLogout.addEventListener("click", (e) => {
   e.preventDefault();
 
-  localStorage.removeItem("usuario");
-  localStorage.removeItem("token");
+  sessionStorage.removeItem("usuario");
+  sessionStorage.removeItem("token");
 
   window.location.href = "../index.html";
 });

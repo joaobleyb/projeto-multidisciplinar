@@ -1,7 +1,7 @@
 // ── EVENTHUB DASHBOARD CLIENTE ───────────────────────────────────────────────────────── //
 // Controla o dashboard do cliente, carregando dados e exibindo eventos.
-const usuario = JSON.parse(localStorage.getItem("usuario"));
-const token = localStorage.getItem("token");
+const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+const token = sessionStorage.getItem("token");
 
 if (!usuario || !token) {
   window.location.href = "../index.html";
@@ -222,8 +222,8 @@ btnProximo.addEventListener("click", () => {
 // ── LOGOUT ────────────────────────────────────────
 document.getElementById("btnLogout").addEventListener("click", (e) => {
   e.preventDefault();
-  localStorage.removeItem("usuario");
-  localStorage.removeItem("token");
+  sessionStorage.removeItem("usuario");
+  sessionStorage.removeItem("token");
   window.location.href = "../index.html";
 });
 

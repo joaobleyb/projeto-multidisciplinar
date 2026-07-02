@@ -193,4 +193,10 @@ Para Rodar os testes:
 npm test
 ```
 
+Gestorgestor@eventhub.com
+senha123
+
+Clientecliente@eventhub.com
+senha123
+
 OBS: Testes ainda estão incompletos (Ainda aprendendo como funciona os testes em JS e NODEjs)

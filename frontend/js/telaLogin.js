@@ -42,7 +42,7 @@ btnEntrar.addEventListener("click", async (event) => {
 
     const dados = await resposta.json();
 
-    localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+    sessionStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
     if (!resposta.ok) {
       alert(dados.erro || "E-mail ou senha incorretos.");
@@ -50,8 +50,8 @@ btnEntrar.addEventListener("click", async (event) => {
     }
 
     // ── SALVAR TOKEN E DADOS DO USUÁRIO ────────────
-    localStorage.setItem("token", dados.token);
-    localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+    sessionStorage.setItem("token", dados.token);
+    sessionStorage.setItem("usuario", JSON.stringify(dados.usuario));
 
     // ── REDIRECIONAR PARA O DASHBOARD ──────────────
     if (dados.usuario.tipo === "gestor") {

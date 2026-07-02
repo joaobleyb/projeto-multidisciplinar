@@ -52,3 +52,9 @@ CREATE TABLE IF NOT EXISTS participantes (
     FOREIGN KEY (evento_id) REFERENCES eventos(id)
     ON DELETE CASCADE
 );
+
+-- ── USUÁRIOS PADRÃO (SEED) ────────────────────────
+-- Senha para ambos: senha123
+INSERT INTO usuarios (nome, sobrenome, email, tipo, senha_hash) VALUES
+  ('Admin', 'Gestor', 'gestor@eventhub.com', 'gestor', '$2b$10$QCbW3ESlPFgJg/Y9nGbPCOPSelYrimm7Wxgzu6ZhnRnQ7sLAgoOJK'),
+  ('Cliente', 'Padrao', 'cliente@eventhub.com', 'cliente', '$2b$10$QCbW3ESlPFgJg/Y9nGbPCOPSelYrimm7Wxgzu6ZhnRnQ7sLAgoOJK');
