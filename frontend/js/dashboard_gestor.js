@@ -579,6 +579,39 @@ let ultimaChecagemNotificacoes = Date.now();
 let notificacoesNaoLidas = [];
 let audioCtx = null;
 
+const CHAVE_NOTIFICACOES = `eventhub_notificacoes_${usuario.id}`;
+const CHAVE_ULTIMA_CHECAGEM = `eventhub_ultima_checagem_${usuario.id}`;
+const CHAVE_BADGE_ATIVO = `eventhub_badge_ativo_${usuario.id}`;
+
+function salvarNotificacoes() {
+  try {
+    localStorage.setItem(CHAVE_NOTIFICACOES, JSON.stringify(notificacoesNaoLidas));
+    localStorage.setItem(CHAVE_ULTIMA_CHECAGEM, String(ultimaChecagemNotificacoes));
+    localStorage.setItem(
+      CHAVE_BADGE_ATIVO,
+      notificacaoBadge.classList.contains("ativo") ? "true" : "false"
+    );
+  } catch (erro) {
+    console.log(erro);
+  }
+}
+
+function carregarNotificacoesSalvas() {
+  try {
+    const salvas = localStorage.getItem(CHAVE_NOTIFICACOES);
+    const checagem = localStorage.getItem(CHAVE_ULTIMA_CHECAGEM);
+    const badgeAtivo = localStorage.getItem(CHAVE_BADGE_ATIVO);
+
+    if (salvas) notificacoesNaoLidas = JSON.parse(salvas);
+    if (checagem) ultimaChecagemNotificacoes = Number(checagem);
+    if (badgeAtivo === "true") notificacaoBadge.classList.add("ativo");
+
+    renderizarNotificacoes();
+  } catch (erro) {
+    console.log(erro);
+  }
+}
+
 // Toca um beep curto sem precisar de nenhum arquivo de áudio
 function tocarSomNotificacao() {
   try {
@@ -636,9 +669,11 @@ async function verificarNotificacoes() {
       renderizarNotificacoes();
       notificacaoBadge.classList.add("ativo");
       tocarSomNotificacao();
+      salvarNotificacoes();
     }
 
     ultimaChecagemNotificacoes = Date.now();
+    salvarNotificacoes(); 
   } catch (erro) {
     console.log(erro);
   }
@@ -648,13 +683,15 @@ btnNotificacao.addEventListener("click", (e) => {
   e.stopPropagation();
   notificacaoDropdown.classList.toggle("ativo");
   notificacaoBadge.classList.remove("ativo");
+  salvarNotificacoes();
 });
 
 document.addEventListener("click", () => {
   notificacaoDropdown.classList.remove("ativo");
 });
 
-setInterval(verificarNotificacoes, 15000);
+carregarNotificacoesSalvas();
+setInterval(verificarNotificacoes, 10000);
 
 // Logout do usuário e retorno à tela de login
 
