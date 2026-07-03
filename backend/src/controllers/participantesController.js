@@ -125,3 +125,26 @@ exports.totalParticipantesGestor = async (req, res) => {
     res.status(500).json({ erro: "Erro ao buscar total de participantes." });
   }
 };
+
+exports.notificacoesGestor = async (req, res) => {
+  try {
+    const { usuarioId } = req.params;
+    const desdeMs = Number(req.query.desde) || Date.now() - 24 * 60 * 60 * 1000;
+    const desde = new Date(desdeMs);
+
+    const [notificacoes] = await pool.query(
+      `SELECT p.id, p.nome AS participante_nome, p.criado_em,
+              e.id AS evento_id, e.nome AS evento_nome
+       FROM participantes p
+       INNER JOIN eventos e ON p.evento_id = e.id
+       WHERE e.usuario_id = ? AND p.criado_em > ?
+       ORDER BY p.criado_em DESC`,
+      [usuarioId, desde]
+    );
+
+    res.json(notificacoes);
+  } catch (erro) {
+    console.log(erro);
+    res.status(500).json({ erro: "Erro ao buscar notificações" });
+  }
+};

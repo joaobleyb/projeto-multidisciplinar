@@ -56,5 +56,5 @@ CREATE TABLE IF NOT EXISTS participantes (
 -- ── USUÁRIOS PADRÃO (SEED) ────────────────────────
 -- Senha para os dois: 123123
 INSERT INTO usuarios (nome, sobrenome, email, tipo, senha_hash) VALUES
-  ('João', 'Gestor', 'jvbb2004@gmail.com', 'gestor', '$2b$10$YlFi3EHu4QN5zy3GuaTczuOkWgTEqDzRy6279dwlPHSA6LhvtxGSi'),
-  ('João', 'Cliente', 'jvbb20042@gmail.com', 'cliente', '$2b$10$YlFi3EHu4QN5zy3GuaTczuOkWgTEqDzRy6279dwlPHSA6LhvtxGSi');
+  (CONVERT(0x4A6FC3A36F USING utf8mb4), 'Gestor', 'jvbb2004@gmail.com', 'gestor', '$2b$10$YlFi3EHu4QN5zy3GuaTczuOkWgTEqDzRy6279dwlPHSA6LhvtxGSi'),
+  (CONVERT(0x4A6FC3A36F USING utf8mb4), 'Cliente', 'jvbb20042@gmail.com', 'cliente', '$2b$10$YlFi3EHu4QN5zy3GuaTczuOkWgTEqDzRy6279dwlPHSA6LhvtxGSi');

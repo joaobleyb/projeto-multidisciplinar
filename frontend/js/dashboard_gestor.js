@@ -568,6 +568,94 @@ async function abrirParticipantes(eventoId, nomeEvento) {
   }
 }
 
+// ── NOTIFICAÇÕES ──────────────────────────────────────────────────────────────────── //
+
+const btnNotificacao = document.querySelector(".btn-notificacao");
+const notificacaoBadge = document.querySelector(".notificacao-badge");
+const notificacaoDropdown = document.getElementById("notificacaoDropdown");
+const notificacaoLista = document.getElementById("notificacaoLista");
+
+let ultimaChecagemNotificacoes = Date.now();
+let notificacoesNaoLidas = [];
+let audioCtx = null;
+
+// Toca um beep curto sem precisar de nenhum arquivo de áudio
+function tocarSomNotificacao() {
+  try {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtx.state === "suspended") {
+      audioCtx.resume();
+    }
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.4);
+  } catch (erro) {
+    console.log(erro);
+  }
+}
+
+function renderizarNotificacoes() {
+  if (notificacoesNaoLidas.length === 0) {
+    notificacaoLista.innerHTML =
+      '<p class="notificacoes-vazio">Nenhuma notificação nova</p>';
+    return;
+  }
+
+  notificacaoLista.innerHTML = "";
+
+  notificacoesNaoLidas.forEach((n) => {
+    const item = document.createElement("div");
+    item.classList.add("notificacao-item");
+    item.innerHTML = `<strong>${n.participante_nome}</strong> se inscreveu em <strong>${n.evento_nome}</strong>`;
+    notificacaoLista.appendChild(item);
+  });
+}
+
+async function verificarNotificacoes() {
+  try {
+    const resposta = await fetch(
+      `http://localhost:3000/api/participantes/notificacoes/gestor/${usuario.id}?desde=${ultimaChecagemNotificacoes}`
+    );
+    const novas = await resposta.json();
+
+    if (novas.length > 0) {
+      notificacoesNaoLidas = [...novas, ...notificacoesNaoLidas].slice(0, 20);
+      renderizarNotificacoes();
+      notificacaoBadge.classList.add("ativo");
+      tocarSomNotificacao();
+    }
+
+    ultimaChecagemNotificacoes = Date.now();
+  } catch (erro) {
+    console.log(erro);
+  }
+}
+
+btnNotificacao.addEventListener("click", (e) => {
+  e.stopPropagation();
+  notificacaoDropdown.classList.toggle("ativo");
+  notificacaoBadge.classList.remove("ativo");
+});
+
+document.addEventListener("click", () => {
+  notificacaoDropdown.classList.remove("ativo");
+});
+
+setInterval(verificarNotificacoes, 15000);
+
 // Logout do usuário e retorno à tela de login
 
 btnLogout.addEventListener("click", (e) => {

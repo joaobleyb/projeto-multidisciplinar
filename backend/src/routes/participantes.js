@@ -7,5 +7,6 @@ router.get("/usuario/:usuarioId", participantesController.buscarInscricoesUsuari
 router.delete("/:eventoId/usuario/:usuarioId", participantesController.cancelarInscricao);
 router.get("/evento/:eventoId", participantesController.buscarParticipantesEvento);
 router.get("/total/gestor/:usuarioId", participantesController.totalParticipantesGestor);
+router.get("/notificacoes/gestor/:usuarioId", participantesController.notificacoesGestor);
 
 module.exports = router;
