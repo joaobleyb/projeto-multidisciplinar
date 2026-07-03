@@ -30,6 +30,7 @@ document.getElementById("avatarIniciais").textContent = iniciais;
 const listaEventos = document.getElementById("listaEventos");
 const listaEventosHoje = document.getElementById("listaEventosHoje");
 const estadoVazio = document.getElementById("estadoVazio");
+const campoBusca = document.getElementById("campoBusca");
 
 const totalInscricoes = document.getElementById("totalInscricoes");
 const totalEventosHoje = document.getElementById("totalEventosHoje");
@@ -122,6 +123,7 @@ async function carregarEventos() {
     eventos.forEach((evento) => {
       const card = document.createElement("div");
       card.classList.add("evento-card");
+      card.dataset.nome = evento.nome.toLowerCase();
 
       const [ano, mes, dia] = evento.data.split("T")[0].split("-");
       const data = new Date(Number(ano), Number(mes) - 1, Number(dia));
@@ -329,6 +331,18 @@ document.getElementById("btnLogout").addEventListener("click", (e) => {
   sessionStorage.removeItem("token");
   window.location.href = "../index.html";
 });
+
+// ── Filtra os eventos do cliente pelo nome digitado ───────────────────── //
+function filtrarEventosCliente() {
+  const busca = campoBusca.value.toLowerCase().trim();
+
+  listaEventos.querySelectorAll(".evento-card").forEach((card) => {
+    const corresponde = card.dataset.nome.includes(busca);
+    card.style.display = corresponde ? "" : "none";
+  });
+}
+
+campoBusca.addEventListener("input", filtrarEventosCliente);
 
 // ── INICIALIZAÇÃO ─────────────────────────────────
 gerarCalendario(mesAtual, anoAtual);

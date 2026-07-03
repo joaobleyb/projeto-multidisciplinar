@@ -3,6 +3,7 @@
 const listaEventos = document.getElementById("listaEventos");
 const listaEventosHoje = document.getElementById("listaEventosHoje");
 const totalEventos = document.getElementById("totalEventos");
+const campoBusca = document.getElementById("campoBusca");
 
 const btnLogout = document.getElementById("btnLogout");
 const modal = document.getElementById("modalEvento");
@@ -174,6 +175,7 @@ async function carregarEventos() {
       const card = document.createElement("div");
 
       card.classList.add("evento-card");
+      card.dataset.nome = evento.nome.toLowerCase();
 
       const [ano, mes, dia] = evento.data.split("T")[0].split("-");
       const data = new Date(ano, mes - 1, dia);
@@ -703,3 +705,15 @@ btnLogout.addEventListener("click", (e) => {
 
   window.location.href = "../index.html";
 });
+
+// ── Filtra os eventos do gestor pelo nome digitado ────────────────────── //
+function filtrarEventosGestor() {
+  const busca = campoBusca.value.toLowerCase().trim();
+
+  listaEventos.querySelectorAll(".evento-card").forEach((card) => {
+    const corresponde = card.dataset.nome.includes(busca);
+    card.style.display = corresponde ? "" : "none";
+  });
+}
+
+campoBusca.addEventListener("input", filtrarEventosGestor);
