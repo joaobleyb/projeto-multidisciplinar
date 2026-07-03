@@ -2,7 +2,7 @@
 
 ## 1. Introdução
 
-Este relatório apresenta os testes unitários implementados no backend do EventHub, cobrindo os controllers de autenticação (`authController`) e de eventos (`eventosController`). Os testes foram escritos com Jest, utilizando mocks da camada de banco de dados (`conexaoDB`) para isolar a lógica de negócio, sem depender de uma conexão real ao MySQL.
+Este relatório apresenta os testes unitários implementados no backend do EventHub, cobrindo os controllers de autenticação (`authController`), de eventos (`eventosController`) e de participantes (`participantesController`). Os testes foram escritos com Jest, utilizando mocks da camada de banco de dados (`conexaoDB`) para isolar a lógica de negócio, sem depender de uma conexão real ao MySQL.
 
 ## 2. Ambiente de testes
 
@@ -36,10 +36,22 @@ Este relatório apresenta os testes unitários implementados no backend do Event
 | Busca de eventos de um usuário específico | Sucesso | Lista de eventos retornada | ✅ Passou |
 | Exclusão de evento existente | Sucesso | Confirmação de exclusão | ✅ Passou |
 
+### 3.3 `participantesController.test.js`
+
+| Teste | Cenário | Resultado esperado | Resultado obtido |
+|---|---|---|---|
+| Inscrição com dados incompletos | Erro de validação | 400 | ✅ Passou |
+| Inscrição duplicada no mesmo evento | Conflito | 409 | ✅ Passou |
+| Inscrição com dados válidos | Sucesso | 201 | ✅ Passou |
+| Total de participantes de um gestor | Sucesso | Total retornado | ✅ Passou |
+| Notificações novas para o gestor | Sucesso | Lista de notificações retornada | ✅ Passou |
+| Nenhuma notificação nova | Sucesso | Array vazio retornado | ✅ Passou |
+| Falha simulada de banco ao buscar notificações | Erro interno | 500 | ✅ Passou |
+
 ## 4. Resultado da execução
 
-Test Suites: 2 passed, 2 total
-Tests:       9 passed, 9 total
+Test Suites: 3 passed, 3 total
+Tests:       16 passed, 16 total
 Snapshots:   0 total
 Time:        ~2s
 
@@ -49,10 +61,11 @@ Os testes cobrem, para cada controller:
 
 - **Validação de entrada** — campos obrigatórios ausentes ou inválidos
 - **Fluxo de sucesso** — operação concluída com os dados corretos
-- **Conflito de regra de negócio** — e-mail duplicado no cadastro
+- **Conflito de regra de negócio** — e-mail duplicado no cadastro e inscrição duplicada em evento
 - **Falha de infraestrutura** — erro simulado de conexão com o banco de dados
 - **Consulta e exclusão de dados** — leitura e remoção de registros existentes
+- **Notificações em tempo real** — retorno de inscrições novas desde a última checagem, cenário sem notificações novas e falha de banco
 
 ## 6. Conclusão
 
-Os testes unitários implementados validam os principais fluxos de sucesso e erro dos controllers de autenticação e de eventos do EventHub. Todos os 9 testes passaram na execução mais recente, confirmando que as regras de negócio — validação de dados, tratamento de conflitos, respostas de erro e operações de CRUD sobre eventos — se comportam conforme o esperado. Os mocks da camada de banco de dados garantiram que os testes fossem executados de forma isolada e reprodutível, sem depender de um ambiente MySQL ativo.
+Os testes unitários implementados validam os principais fluxos de sucesso e erro dos controllers de autenticação, eventos e participantes do EventHub. Todos os 16 testes passaram na execução mais recente, confirmando que as regras de negócio — validação de dados, tratamento de conflitos, respostas de erro, operações de CRUD sobre eventos e o fluxo de notificações de novas inscrições — se comportam conforme o esperado. Os mocks da camada de banco de dados garantiram que os testes fossem executados de forma isolada e reprodutível, sem depender de um ambiente MySQL ativo.
