@@ -1,202 +1,181 @@
 # EventHub
 
-Plataforma web para criação, gestão e inscrição em eventos, com dois tipos de usuário: **Gestor** e **Cliente**.
+Plataforma web para organização e gerenciamento de eventos, com dois perfis de acesso — **Gestor** (cria e administra eventos) e **Cliente** (explora e se inscreve em eventos).
+
+---
+
+## Sobre o projeto
+
+O EventHub permite que gestores criem, editem e acompanhem eventos (com foto, data, horário e status), enquanto clientes podem explorar a lista de eventos disponíveis, se inscrever e acompanhar suas inscrições em um dashboard próprio. A autenticação é feita por e-mail/senha com token JWT, e o cadastro permite escolher o tipo de conta (Gestor ou Cliente).
 
 ---
 
 ## Tecnologias
 
 **Frontend**
-- HTML, CSS, JavaScript (Vanilla)
-- Google Fonts — Plus Jakarta Sans
+- HTML5, CSS3 e JavaScript puro (sem framework)
+- Fonte: [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans) (Google Fonts)
 
 **Backend**
 - Node.js + Express
-- MySQL 8.0 (via Docker)
-- JWT para autenticação
-- bcryptjs para hash de senhas
+- MySQL (`mysql2`)
+- Autenticação via JWT (`jsonwebtoken`)
+- Hash de senha com `bcryptjs`
+- `cors`, `dotenv`
 
 **Infraestrutura**
-- Docker + Docker Compose
-- phpMyAdmin (interface do banco)
+- Docker e Docker Compose (MySQL, backend, phpMyAdmin e frontend via Nginx)
+
+**Testes**
+- Jest, com mocks da camada de banco de dados para isolar a lógica dos controllers
 
 ---
 
-## Estrutura do Projeto
+## Estrutura do projeto
 
 ```
-eventhub/
-├── banco/
-│   └── init.sql                  # Script de criação do banco
+.
 ├── backend/
 │   ├── src/
-│   │   ├── config/
-│   │   │   └── conexaoDB.js
-│   │   ├── controllers/
-│   │   │   ├── authController.js
-│   │   │   ├── eventosController.js
-│   │   │   └── participantesController.js
-│   │   ├── middlewares/
-│   │   │   └── verificarToken.js
+│   │   ├── server.js
 │   │   ├── routes/
 │   │   │   ├── autenticacao.js
 │   │   │   ├── eventos.js
 │   │   │   └── participantes.js
-│   │   └── server.js
-│   ├── .env.example
+│   │   └── controllers/
+│   │       ├── authController.js
+│   │       ├── eventosController.js
+│   │       └── participantesController.js
+│   ├── testes/
+│   │   ├── authController.test.js
+│   │   ├── eventosController.test.js
+│   │   └── relatorio_de_testes.md
 │   ├── Dockerfile
 │   └── package.json
 ├── frontend/
+│   ├── index.html                     # Tela de login
 │   ├── css/
 │   │   ├── login.css
-│   │   ├── dashboard_gestor.css
 │   │   ├── dashboard_cliente.css
+│   │   ├── dashboard_gestor.css
 │   │   └── explorar_eventos.css
-│   ├── img/
 │   ├── js/
 │   │   ├── telaLogin.js
 │   │   ├── telaCadastro.js
-│   │   ├── dashboard_gestor.js
 │   │   ├── dashboard_cliente.js
+│   │   ├── dashboard_gestor.js
 │   │   └── explorar_eventos.js
-│   ├── pages/
-│   │   ├── cadastro.html
-│   │   ├── dashboard_gestor.html
-│   │   ├── dashboard_cliente.html
-│   │   └── explorar_eventos.html
-│   └── index.html
+│   └── pages/
+│       ├── cadastro.html
+│       ├── dashboard_gestor.html
+│       ├── dashboard_cliente.html
+│       └── explorar_eventos.html
+├── banco/
+│   └── init.sql                       # Schema + seed, executado pelo Docker
 ├── docker-compose.yml
 └── .gitignore
 ```
 
 ---
 
-## Como Rodar
+## Como rodar o projeto
 
+Pré-requisitos: [Docker](https://www.docker.com/) e Docker Compose instalados.
+
+```bash
+git clone https://github.com/joaobleyb/projeto-multidisciplinar
+docker compose up -d
+```
+
+Isso sobe automaticamente:
+
+| Serviço      | Porta local | Descrição                          |
+|--------------|-------------|-------------------------------------|
+| `frontend`   | `8081`      | Interface web (Nginx)               |
+| `backend`    | `3000`      | API REST (Node/Express)             |
+| `mysql`      | `3306`      | Banco de dados                      |
+| `phpmyadmin` | `8080`      | Administração do banco via navegador |
+
+Acesse a aplicação em **http://localhost:8081**.
+
+O banco já é criado e populado com dois usuários de teste (senha `123123` para ambos):
+- `jvbb2004@gmail.com` — perfil **Gestor**
+- `jvbb20042@gmail.com` — perfil **Cliente**
+
+
+## Variáveis de ambiente (backend)
+
+| Variável         | Descrição                              |
+|------------------|------------------------------------------|
+| `DB_HOST`        | Host do MySQL                            |
+| `DB_PORT`        | Porta do MySQL (padrão `3306`)           |
+| `DB_USER`        | Usuário do banco                         |
+| `DB_PASSWORD`    | Senha do banco                           |
+| `DB_NAME`        | Nome do banco (`eventhub`)               |
+| `PORT`           | Porta da API (padrão `3000`)             |
+| `JWT_SECRET`     | Chave secreta para assinatura do token   |
+| `JWT_EXPIRES_IN` | Validade do token (ex: `7d`)             |
+
+---
+
+## Principais rotas da API
+
+| Método | Rota                                              | Descrição                                    |
+|--------|----------------------------------------------------|-----------------------------------------------|
+| POST   | `/api/auth/cadastrar`                              | Cria um novo usuário (gestor ou cliente)      |
+| POST   | `/api/auth/login`                                  | Autentica e retorna token JWT                 |
+| GET    | `/api/eventos`                                     | Lista todos os eventos                        |
+| GET    | `/api/eventos/usuario/:usuarioId`                  | Lista eventos criados por um gestor           |
+| POST   | `/api/eventos`                                     | Cria um evento                                |
+| PUT    | `/api/eventos/:id`                                 | Edita um evento                               |
+| DELETE | `/api/eventos/:id`                                 | Remove um evento                              |
+| POST   | `/api/participantes`                               | Inscreve um cliente em um evento              |
+| DELETE | `/api/participantes/:eventoId/usuario/:usuarioId`  | Cancela inscrição                             |
+| GET    | `/api/participantes/usuario/:usuarioId`            | Lista eventos em que o usuário está inscrito  |
+| GET    | `/api/participantes/evento/:eventoId`              | Lista participantes de um evento              |
+| GET    | `/api/participantes/total/gestor/:usuarioId`       | Total de participantes de um gestor           |
+| GET    | `/api/ping`                                        | Healthcheck da API                            |
+
+---
+
+## Testes
+ 
+Os testes automatizados do EventHub cobrem o **backend**, validando as regras de negócio dos controllers de autenticação (`authController`) e de eventos (`eventosController`). Eles são escritos com **Jest** e usam **mocks** da camada de banco de dados (`conexaoDB`) — ou seja, simulam as respostas do MySQL em vez de se conectar a um banco real. Isso torna os testes rápidos, isolados e reprodutíveis: não é preciso ter o MySQL nem o Docker rodando para executá-los.
+ 
 ### Pré-requisitos
+ 
+- **Node.js** instalado (recomendado: versão 20, mesma usada no `Dockerfile` do backend)
+- Dependências do backend instaladas (o Jest está listado em `devDependencies` no `package.json`)
 
-- [Docker](https://www.docker.com/) e Docker Compose instalados
-- Node.js 20+ (caso queira rodar o backend fora do Docker)
-
-### 1. Clone o repositório
-
+### Como rodar
+ 
 ```bash
-git clone https://github.com/seu-usuario/eventhub.git
-cd eventhub
+cd backend
+npm install   # instala as dependências, incluindo o Jest
+npm test      # executa a suíte de testes
 ```
-
-### 2. Configure as variáveis de ambiente
-
-```bash
-cp backend/.env.example backend/.env
-```
-
-Edite o `backend/.env` com seus valores (ou use os padrões do `docker-compose.yml`):
-
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=eventhub_user
-DB_PASSWORD=eventhub123
-DB_NAME=eventhub
-PORT=3000
-JWT_SECRET=sua_chave_secreta
-JWT_EXPIRES_IN=7d
-```
-
-### 3. Suba os containers
-
-```bash
-docker-compose up -d
-```
-
-Isso inicia:
-- **MySQL** na porta `3306`
-- **Backend (API)** na porta `3000`
-- **phpMyAdmin** na porta `8080`
-
-O banco é criado automaticamente pelo `banco/init.sql` na primeira execução.
-
-### 4. Abra o frontend
-
-Basta abrir o arquivo `frontend/index.html` no navegador. Não é necessário servidor para o frontend.
-
+ 
+### O que é validado
+ 
+- **Validação de entrada** — campos obrigatórios ausentes ou inválidos no cadastro e na criação de eventos
+- **Fluxo de sucesso** — cadastro, login e criação de eventos com dados corretos
+- **Conflitos de regra de negócio** — tentativa de cadastro com e-mail já existente
+- **Falhas de infraestrutura** — comportamento da API quando a conexão com o banco falha (simulado via mock)
+- **Consulta e exclusão de dados** — busca de eventos por usuário e remoção de eventos existentes
+O relatório completo, com a lista de casos de teste e os resultados da última execução, está em [`backend/testes/relatorio_de_testes.md`](backend/testes/relatorio_de_testes.md).
+ 
 ---
-
-## Endpoints da API
-
-### Autenticação — `/api/auth`
-
-| Método | Rota         | Descrição           |
-|--------|--------------|---------------------|
-| POST   | `/cadastrar` | Cadastrar usuário   |
-| POST   | `/login`     | Login e geração JWT |
-
-### Eventos — `/api/eventos`
-
-| Método | Rota              | Descrição                       |
-|--------|-------------------|---------------------------------|
-| GET    | `/`               | Buscar todos os eventos         |
-| GET    | `/usuario/:id`    | Eventos de um gestor específico |
-| POST   | `/`               | Criar evento                    |
-| PUT    | `/:id`            | Editar evento                   |
-| DELETE | `/:id`            | Excluir evento                  |
-
-### Participantes — `/api/participantes`
-
-| Método | Rota                          | Descrição                              |
-|--------|-------------------------------|----------------------------------------|
-| POST   | `/`                           | Inscrever usuário em evento            |
-| GET    | `/usuario/:usuarioId`         | Inscrições de um cliente               |
-| DELETE | `/:eventoId/usuario/:usuarioId` | Cancelar inscrição                   |
-| GET    | `/evento/:eventoId`           | Participantes de um evento             |
-| GET    | `/total/gestor/:usuarioId`    | Total de participantes do gestor       |
-
+ 
+## Padrão de código do frontend
+ 
+O frontend segue um padrão de nomenclatura em português, definido em `frontend/index.html` (tela de login) e replicado nas demais páginas:
+ 
+- **Classes**: `topbar`, `topbar-logo`, `container`, `login-area`, `form-area`, `senha-wrapper`, `forgot-password`, `rodape-termos`, `link-cadastro`, `imagem`, `imagem-overlay`
+- **IDs**: `email`, `senha`, `frase`, `btnEntrar`, `btnCadastrar`, `imagemAleatoria`
+Esse padrão deve ser mantido ao criar novas telas ou componentes no projeto.
+ 
 ---
-
-## Tipos de Usuário
-
-### Gestor
-- Cria, edita e exclui eventos
-- Visualiza participantes inscritos por evento
-- Dashboard com estatísticas e calendário
-
-### Cliente
-- Explora eventos disponíveis
-- Se inscreve e cancela inscrições
-- Dashboard pessoal com seus eventos e calendário
-
----
-
-## Banco de Dados
-
-Três tabelas principais:
-
-- **usuarios** — id, nome, sobrenome, email, tipo (`gestor` | `cliente`), senha_hash
-- **eventos** — id, nome, descricao, foto (base64), data, horario, status, usuario_id
-- **participantes** — id, nome, email, evento_id, confirmado
-
----
-
-## Acesso ao phpMyAdmin
-
-Após subir os containers, acesse `http://localhost:8080` com:
-
-- **Usuário:** `eventhub_user`
-- **Senha:** `eventhub123`
-
-## Testes - Pendentes
-
-Para Rodar os testes:
-
-```bash
-npm test
-```
-
-Gestorgestor@eventhub.com
-senha123
-
-Clientecliente@eventhub.com
-senha123
-
-OBS: Testes ainda estão incompletos (Ainda aprendendo como funciona os testes em JS e NODEjs)
+ 
+## Licença
+ 
+Este projeto é de uso acadêmico/educacional.
