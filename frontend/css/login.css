@@ -183,62 +183,6 @@ body {
   transform: scale(0.98);
 }
 
-/* ── SEPARADOR OU ────────────────────────────── */
-
-.ou {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--cor-texto-secundario);
-  font-size: 0.8rem;
-  margin: 0.25rem 0;
-}
-
-.ou::before,
-.ou::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--cor-borda);
-}
-
-/* ── BOTÕES SOCIAIS ──────────────────────────── */
-
-.social-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.social-buttons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 44px;
-  background: var(--cor-input);
-  border: 1px solid var(--cor-borda);
-  border-radius: var(--raio);
-  color: var(--cor-texto);
-  font-family: var(--fonte);
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background 0.2s,
-    border-color 0.2s,
-    transform 0.1s;
-}
-
-.social-buttons button:hover {
-  background: var(--cor-input-foco);
-  border-color: var(--cor-borda-hover);
-}
-
-.social-buttons button:active {
-  transform: scale(0.98);
-}
-
 /* ── RODAPÉ / LINKS ──────────────────────────── */
 
 .rodape-termos {

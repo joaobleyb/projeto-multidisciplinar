@@ -124,14 +124,29 @@ async function carregarEventos() {
     listaEventosHoje.innerHTML = "";
 
     // Tabela de eventos hoje (Abaixo do calendario)
+    // Usa data local (não UTC) para não desalinhar o dia por causa do fuso horário
 
     const hoje = new Date();
-    const hojeFormatado = hoje.toISOString().split("T")[0];
+    const anoHoje = hoje.getFullYear();
+    const mesHoje = String(hoje.getMonth() + 1).padStart(2, "0");
+    const diaHoje = String(hoje.getDate()).padStart(2, "0");
+    const hojeFormatado = `${anoHoje}-${mesHoje}-${diaHoje}`;
 
     const eventosHoje = eventos.filter((evento) => {
       const dataEvento = evento.data.split("T")[0];
       return dataEvento === hojeFormatado;
     });
+
+    document.getElementById("totalEventosHoje").textContent = eventosHoje.length;
+
+    const eventosEsteMes = eventos.filter((evento) => {
+      const [ano, mes] = evento.data.split("T")[0].split("-");
+      return Number(ano) === anoHoje && Number(mes) - 1 === hoje.getMonth();
+    });
+
+    document.getElementById("totalEventosEsteMes").textContent = eventosEsteMes.length;
+
+    ultimosEventosCarregados = eventos;
 
     if (eventosHoje.length === 0) {
       listaEventosHoje.innerHTML = `
@@ -156,7 +171,6 @@ async function carregarEventos() {
     }
 
     eventos.forEach((evento) => {
-      console.log(evento.data);
       const card = document.createElement("div");
 
       card.classList.add("evento-card");
@@ -254,6 +268,8 @@ async function carregarEventos() {
         abrirParticipantes(evento.id, evento.nome);
       });
     });
+
+    gerarCalendario(mesAtual, anoAtual, eventos);
   } catch (erro) {
     console.log(erro);
   }
@@ -301,6 +317,7 @@ carregarEventos();
 
 let mesAtual = new Date().getMonth();
 let anoAtual = new Date().getFullYear();
+let ultimosEventosCarregados = [];
 
 const nomesMeses = [
   "Janeiro",
@@ -317,7 +334,7 @@ const nomesMeses = [
   "Dezembro",
 ];
 
-function gerarCalendario(mes, ano) {
+function gerarCalendario(mes, ano, eventos = []) {
   const grid = document.querySelector(".calendario-grid");
   const tituloMes = document.querySelector(".calendario-nav span");
 
@@ -330,6 +347,19 @@ function gerarCalendario(mes, ano) {
   const hoje = new Date();
   const primeiroDia = new Date(ano, mes, 1).getDay();
   const totalDias = new Date(ano, mes + 1, 0).getDate();
+
+  // Dias com eventos neste mês/ano
+  const diasComEvento = new Set(
+    eventos
+      .map((e) => {
+        const [eAno, eMes, eDia] = e.data.split("T")[0].split("-");
+        if (Number(eAno) === ano && Number(eMes) - 1 === mes) {
+          return Number(eDia);
+        }
+        return null;
+      })
+      .filter(Boolean)
+  );
 
   // Espaços vazios antes do dia 1
   for (let i = 0; i < primeiroDia; i++) {
@@ -352,6 +382,10 @@ function gerarCalendario(mes, ano) {
       cel.classList.add("hoje");
     }
 
+    if (diasComEvento.has(d)) {
+      cel.classList.add("evento-marcado");
+    }
+
     grid.appendChild(cel);
   }
 }
@@ -370,7 +404,7 @@ btnAnterior.addEventListener("click", () => {
     mesAtual = 11;
     anoAtual--;
   }
-  gerarCalendario(mesAtual, anoAtual);
+  gerarCalendario(mesAtual, anoAtual, ultimosEventosCarregados);
 });
 
 btnProximo.addEventListener("click", () => {
@@ -379,7 +413,7 @@ btnProximo.addEventListener("click", () => {
     mesAtual = 0;
     anoAtual++;
   }
-  gerarCalendario(mesAtual, anoAtual);
+  gerarCalendario(mesAtual, anoAtual, ultimosEventosCarregados);
 });
 
 // Iniciar

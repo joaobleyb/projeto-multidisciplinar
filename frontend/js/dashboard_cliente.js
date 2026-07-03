@@ -36,29 +36,40 @@ const totalEventosHoje = document.getElementById("totalEventosHoje");
 const totalConfirmados = document.getElementById("totalConfirmados");
 const proximoEvento = document.getElementById("proximoEvento");
 
-// Carrega eventos do cliente e atualiza o dashboard
+const meses = [
+  "JAN", "FEV", "MAR", "ABR", "MAI", "JUN",
+  "JUL", "AGO", "SET", "OUT", "NOV", "DEZ",
+];
+
+// Carrega os eventos em que o cliente está inscrito e atualiza o dashboard
 async function carregarEventos() {
   try {
-    const resposta = await fetch(
-      `http://localhost:3000/api/eventos/usuario/${usuario.id}`
-    );
+    // Busca todos os eventos + as inscrições do usuário, igual ao explorar_eventos.js
+    const [resEventos, resInscricoes] = await Promise.all([
+      fetch("http://localhost:3000/api/eventos"),
+      fetch(`http://localhost:3000/api/participantes/usuario/${usuario.id}`),
+    ]);
 
-    const eventos = await resposta.json();
+    const todosEventos = await resEventos.json();
+    const idsInscritos = await resInscricoes.json();
+    const idsInscritosSet = new Set(idsInscritos);
+
+    // Mantém só os eventos em que o cliente está realmente inscrito
+    const eventos = todosEventos.filter((evento) => idsInscritosSet.has(evento.id));
 
     // Remove estado vazio se houver eventos
     if (eventos.length > 0) {
-      estadoVazio.remove();
+      estadoVazio?.remove();
     }
 
     totalInscricoes.textContent = eventos.length;
 
+    // Data de hoje local (sem UTC), pra não desalinhar o dia por fuso horário
     const hoje = new Date();
-    const hojeFormatado = hoje.toISOString().split("T")[0];
-
-    const meses = [
-      "JAN","FEV","MAR","ABR","MAI","JUN",
-      "JUL","AGO","SET","OUT","NOV","DEZ",
-    ];
+    const anoHoje = hoje.getFullYear();
+    const mesHoje = String(hoje.getMonth() + 1).padStart(2, "0");
+    const diaHoje = String(hoje.getDate()).padStart(2, "0");
+    const hojeFormatado = `${anoHoje}-${mesHoje}-${diaHoje}`;
 
     // ── EVENTOS HOJE ────────────────────────────
     const eventosHoje = eventos.filter((evento) => {
@@ -92,7 +103,7 @@ async function carregarEventos() {
     const confirmados = eventos.filter((e) => e.status === "Confirmado").length;
     totalConfirmados.textContent = confirmados;
 
-    // Próximo evento futuro
+    // Próximo evento futuro (a partir de hoje, inclusive)
     const futuros = eventos
       .filter((e) => e.data.split("T")[0] >= hojeFormatado)
       .sort((a, b) => a.data.localeCompare(b.data));
@@ -101,9 +112,13 @@ async function carregarEventos() {
       const proximo = futuros[0];
       const [ano, mes, dia] = proximo.data.split("T")[0].split("-");
       proximoEvento.textContent = `${dia}/${mes}`;
+    } else {
+      proximoEvento.textContent = "—";
     }
 
     // ── LISTA DE EVENTOS ────────────────────────
+    listaEventos.querySelectorAll(".evento-card").forEach((card) => card.remove());
+
     eventos.forEach((evento) => {
       const card = document.createElement("div");
       card.classList.add("evento-card");
@@ -144,8 +159,8 @@ let mesAtual = new Date().getMonth();
 let anoAtual = new Date().getFullYear();
 
 const nomesMeses = [
-  "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
-  "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro",
+  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
 ];
 
 // Gera o calendário dos eventos do cliente
