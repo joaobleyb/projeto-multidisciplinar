@@ -101,6 +101,23 @@ fecharModal.addEventListener("click", () => {
   modal.classList.remove("ativo");
 });
 
+// ── Atualiza o contador "X Participantes" de um card específico ──────── //
+async function atualizarContadorParticipantes(eventoId) {
+  try {
+    const resposta = await fetch(
+      `http://localhost:3000/api/participantes/evento/${eventoId}`,
+    );
+    const participantes = await resposta.json();
+
+    const el = document.getElementById(`participantes-evento-${eventoId}`);
+    if (el) {
+      el.textContent = `${participantes.length} Participante${participantes.length !== 1 ? "s" : ""}`;
+    }
+  } catch (erro) {
+    console.log(erro);
+  }
+}
+
 // Função para carregar os eventos ───────────────────────────────────────────────────────────────────────────────────────────────────── //
 
 async function carregarEventos() {
@@ -114,13 +131,6 @@ async function carregarEventos() {
     listaEventos.innerHTML = "";
 
     totalEventos.textContent = eventos.length;
-
-    fetch(`http://localhost:3000/api/participantes/total/gestor/${usuario.id}`)
-      .then((r) => r.json())
-      .then((dados) => {
-        document.querySelectorAll(".stat-valor")[1].textContent = dados.total;
-      })
-      .catch(() => {});
 
     listaEventosHoje.innerHTML = "";
 
@@ -238,17 +248,7 @@ async function carregarEventos() {
 
       listaEventos.prepend(card);
 
-      fetch(`http://localhost:3000/api/participantes/evento/${evento.id}`)
-        .then((r) => r.json())
-        .then((participantes) => {
-          const el = document.getElementById(
-            `participantes-evento-${evento.id}`,
-          );
-          if (el) {
-            el.textContent = `${participantes.length} Participante${participantes.length !== 1 ? "s" : ""}`;
-          }
-        })
-        .catch(() => {});
+      atualizarContadorParticipantes(evento.id);
 
       const btnMenu = card.querySelector(".evento-menu");
       const dropdown = card.querySelector(".evento-menu-dropdown");
@@ -671,6 +671,10 @@ async function verificarNotificacoes() {
       renderizarNotificacoes();
       notificacaoBadge.classList.add("ativo");
       tocarSomNotificacao();
+      const eventosAfetados = new Set(novas.map((n) => n.evento_id));
+      eventosAfetados.forEach((eventoId) =>
+        atualizarContadorParticipantes(eventoId),
+      );
       salvarNotificacoes();
     }
 
